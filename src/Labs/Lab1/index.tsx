@@ -285,7 +285,7 @@ export default function Lab1() {
     
 <h4>Anchor tag</h4>
 Please
-<a href="https://github.com/https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a1/src" 
+<a href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a1/src" 
 id="wd-github"> click here </a>
 to get dummy text<br/>
     
