@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import KambazNavigation from "./Navigation";
 export default function Dashboard() {
   return (
     <div id="wd-dashboard">
