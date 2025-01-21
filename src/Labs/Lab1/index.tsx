@@ -2,6 +2,17 @@ export default function Lab1() {
     return (
     <div id ="wd-lab1">
             <h2>Lab 1</h2>
+
+<h3>Katie Winkleblack | Section: 4550 02 </h3>
+
+            <h4>Github Repository Link</h4>
+Please
+<a href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a1/src" 
+id="wd-github"> click here </a>
+to be directed to Repository - clarify it is on Branch "a1"<br/>
+
+<br/>
+
             <h3>HTML Examples</h3>
             <div id="wd-h-tag">
             <h4>Heading Tags</h4>
@@ -282,12 +293,6 @@ export default function Lab1() {
    <option value="SCIFI"  selected> Science Fiction </option>
    <option value="FANTASY">         Fantasy         </option>
 </select>
-    
-<h4>Anchor tag</h4>
-Please
-<a href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a1/src" 
-id="wd-github"> click here </a>
-to get dummy text<br/>
     
     </div>
 
