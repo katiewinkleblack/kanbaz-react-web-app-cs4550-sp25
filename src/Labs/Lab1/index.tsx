@@ -3,7 +3,7 @@ export default function Lab1() {
     <div id ="wd-lab1">
             <h2>Lab 1</h2>
 
-<h3>Katie Winkleblack | Section: 4550 02 </h3>
+<h3>Katherine Winkleblack | Section: 02 </h3>
 
             <h4>Github Repository Link</h4>
 Please
@@ -81,6 +81,7 @@ to be directed to Repository - clarify it is on Branch "a1"<br/>
             <ul id="wd-your-books">
                 <li>Secret Life of Bees</li>
                 <li>Pride and Prejudice</li>
+                <li>The Street</li>
                 <li>The Perks of Being a Wallflower</li>
             </ul>
 
