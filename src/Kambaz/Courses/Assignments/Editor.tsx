@@ -12,9 +12,8 @@ export default function AssignmentEditor() {
               <FormLabel htmlFor="wd-name" className="mb-0">Assignment Name</FormLabel>
         <FormControl
         type="text"
-        id="wd-name"
-        value="A1"
-        onChange={(e)=>{}}
+        placeholder="name"
+        id="wd-assign"
         className="me-2 mt-2"
         />
         </FormGroup>
