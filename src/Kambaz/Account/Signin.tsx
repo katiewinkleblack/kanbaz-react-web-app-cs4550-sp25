@@ -13,6 +13,7 @@ export default function Signin() {
       id="wd-password"
       placeholder="password" 
       className="mb-2" 
+      type="password"
       /> 
       <Link
       to="/Kambaz/Dashboard" 
