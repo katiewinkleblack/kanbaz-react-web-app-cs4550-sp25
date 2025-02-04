@@ -1,0 +1,210 @@
+body   {  margin: 0;  padding: 0;  }
+body * {  font-family: Arial, Helvetica, sans-serif;  }
+
+@media (min-width: 768px) {
+  #wd-kambaz .wd-main-content-offset {
+    padding-left: 140px !important;
+  }
+}
+
+.list-group.wd > .list-group-item.active {
+  color: black;
+  background-color: white;
+  border-left: 3px solid black !important;
+}
+
+.wd-border-greyish {
+    border: #D3D3D3;
+}
+
+.wd-bold {
+  font-weight: bold;
+}
+
+.wd-left-side-black-border {
+  color: darkred;
+  border-left: 5px solid black !important;
+}
+
+
+
+body { margin: 0;  padding: 0; }
+body * { font-family:
+         Arial, Helvetica, 
+         sans-serif; }
+@media (min-width: 768px) {
+  #wd-kambaz .wd-main-content-offset {
+    padding-left: 140px !important;
+  }
+}
+
+.btn-secondary {
+  --bs-btn-color: #000 !important;
+  --bs-btn-bg: #c7cdd1 !important;
+  --bs-btn-border-color: #c7cdd1 !important;
+  --bs-btn-hover-color: #fff !important;
+}
+
+.bg-secondary {
+  --bs-secondary-rgb: 199, 205, 209;
+}
+
+.bg-third {
+    --bs-secondary-rgb: blue;
+  }
+
+.list-group-item {
+  --bs-list-group-border-color: gray;
+}
+.wd-lesson {
+  border-left: 3px solid green !important;
+}
+
+
+.wd-assignment {
+    border-left: 3px solid green !important;
+  }
+
+
+.wd-rounded-border {
+    border-radius: 25px;
+    padding: 3px 15px;
+    border: 1px solid black;
+    display: inline-block;
+    color: black;
+   }
+
+.wd-background-assignment {
+    background-color: #F1F1F4;
+}
+
+.wd-assignment-link {
+    text-decoration: none;
+    color: inherit;
+    user-select: none;
+}
+
+.wd-straight-border {
+    border-radius: 5px;
+    padding: 8px 16px;
+    border: 1px solid lightgrey;
+    display: block;
+   
+    color: black;
+   }
+
+   .wd-padding-left {
+    padding-left: 700px;
+   }
+
+
+
+   .wd-custom-input {
+    width: 450px !important;   
+   }
+
+   .wd-padding-right {
+    padding-right: 40px;
+   }
+
+   .wd-label {
+    white-space: nowrap; 
+    min-width: 150px; 
+  }
+
+  .wd-straight-border-two {
+    border-radius: 5px;
+    width: 100%;
+    padding: 8px 16px;
+    border: 1px solid lightgrey;
+    display: block;
+   
+    color: black;
+
+    margin-left: auto;
+    margin-right: 5px;
+
+   }
+
+   .wd-top-left {
+    position: relative;
+    height: 250px;
+    left: 16px;
+
+   }
+
+   .wd-from-until {
+    gap: 20px;
+   }
+
+   .wd-assign-label {
+    position: relative;
+    height: 270px;
+    left: 80px;
+
+   }
+
+   .wd-grade-label {
+    position: relative;
+    height: 35;
+    left: 11px;
+
+   }
+
+   .wd-group-label {
+    position: relative;
+    height: 25px;
+    left: 4px;
+
+   }
+
+   .wd-points-label {
+    position: relative;
+    height: 25px;
+    left: 93px;
+
+   }
+
+#wd-button-account {
+  background-color: #dc3545;
+  color: white;
+}
+
+#wd-button-account:hover {
+  background-color: darkred;
+  color:#fff;
+
+}
+
+   #wd-cancel-button {
+    border-radius: 3px ;
+   }
+
+   #wd-save-button {
+    border-radius: 3px ;
+    color: white;
+   }
+
+
+   #wd-account-navigation {
+    padding-left: 20px;
+   }
+
+   .wd-account-signin-nav {
+    color: red;
+   }
+
+   .wd-border-for-navigation {
+    border-bottom: none !important;
+    border-left: 3px solid black !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-radius: 0px;
+    
+   }
+
+   #wd-signup-black {
+    color: black;
+   }
+
+

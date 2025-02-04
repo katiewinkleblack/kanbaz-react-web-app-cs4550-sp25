@@ -1,138 +1,250 @@
+import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+
 export default function AssignmentEditor() {
     return (
-      <div id="wd-assignments-editor">
-        <label htmlFor="wd-name" style={{ fontWeight: 'bold' }}>Assignment Name</label>
+<div className="wd-padding-right">
+<div id="wd-assignments-editor">
+   <div id="wd-bootstrapforms">
+     <div id="wd-css-styling-forms">  
+        <Form>
+            <FormGroup className="mb-3" controlId="wd-name">
+
+              <FormLabel htmlFor="wd-name" className="mb-0">Assignment Name</FormLabel>
+        <FormControl
+        type="text"
+        id="wd-name"
+        value="A1"
+        onChange={(e)=>{}}
+        className="me-2 mt-2"
+        />
+        </FormGroup>
+
+
+        <div className="mt-4 wd-straight-border">
+        <br/>
+        The assigment is 
+        <span className="text-danger"> available online</span>
+        
+        <br/><br/>
+        Submit a link to the landing page of your Web application running on Netlify.
         <br/>
         <br/>
-        <input id="wd-name" value="A1 - ENV + HTML" /><br /><br />
-        <textarea id="wd-description">
-          The assignment is available online Submit a link to the landing page of
-        </textarea>
+        The landing page should include the following:
+        <br/>
+        <br/>
+        <ul id="assignment-requirements">
+        <li>Your full name and section</li>
+        <li>Links to each of the lab assignments</li>
+        <li>Links to the Kambaz application</li>
+        <li>Links to all relevent source code repositories</li>
+        </ul>
+        The Kambaz application should include a link to navigate back to the landing page.
+        </div>
         <br />
-        <table>
-            <br/>
-        <tr>
-          <td align="right" valign="top">
-            <label htmlFor="wd-points">Points</label>
-          </td>
-          <td>
-            <input id="wd-points" value={100} />
-          </td>
-        </tr>
-        <br/>
-        <tr>
-          <td align="right" valign="top">
-            <label htmlFor="wd-assignment">Assignment Group</label>
-          </td>
-          <td>
-<select id="wd-assignment">
-    <option selected value="ASSIGNMENTS">ASSIGNMENTS</option>
-    <option value="QUIZZES">QUIZZES</option>
-    <option value="PROJECT">PROJECTS</option>
-    <option value="EXAMS">EXAMS</option>
-</select>
-          </td>
-        </tr>
+        
+        <FormGroup className="mb-3 mt-2" controlId="wd-points-editor">
+        <div className="d-flex align-items-center ms-auto" style={{ maxWidth: '85.5%' }}>
+        <FormLabel htmlFor="wd-points" className="mb-0 wd-label wd-points-label">Points </FormLabel>
+          <FormControl
+            type="number"
+            id="wd-points" 
+            value={100}
+            />
+         </div>
+        </FormGroup>
+       
 
-        <br/>
-        <tr>
-          <td align="right" valign="top">
-            <label htmlFor="wd-grade">Display Grade as</label>
-          </td>
-          <td>
-<select id="wd-grade">
-    <option selected value="PERCENTAGE">Percentage</option>
-    <option value="POINTS">Points</option>
-    <option value="LETTER GRADE">Letter Grade</option>
-    <option value="COMPLETE/INCOMPLETE">Complete/Incomplete</option>
-</select>
-          </td>
-        </tr>
+       <FormGroup className="mb-3 mt-4" controlId="wd-assignment-group">
+       <div className="d-flex align-items-center ms-auto" style={{ maxWidth: '85.5%' }}>
+       <FormLabel htmlFor="wd-assignment-group" className="mb-0 wd-label wd-group-label">Assignment Group</FormLabel>
+          <FormControl
+          as="select"
+          id="wd-assignemnt-group"
+          style= {{appearance: 'auto'}}
+          >
+            <option>ASSIGNMENTS</option>
+            <option>QUIZZES</option>
+            <option>PROJECTS</option>
+            <option>EXAMS</option>
+            </FormControl>
+          </div>
+        </FormGroup>
 
-        <br/>
-        <tr>
-          <td align="right" valign="top">
-            <label htmlFor="wd-subtype">Display Grade as</label>
-          </td>
-          <td>
-<select id="wd-subtype">
+
+      <FormGroup className="mb-3 mt-4" controlId="wd-display-grade">
+      <div className="d-flex align-items-center ms-auto" style={{ maxWidth: '85.3%' }}>
+        <FormLabel htmlFor="wd-display-grade" className="mb-0 wd-label wd-grade-label">Display Grade as </FormLabel>
+          <FormControl
+          as="select"
+          id="wd-display-grade"
+          style={{ appearance: 'auto'}}
+          >
+            <option>Percentage</option>
+            <option>Points</option>
+            <option>Letter Grade</option>
+            <option>Complete/Incompplete</option>
+            </FormControl>
+          </div>
+        </FormGroup>
+  
+<div className="d-flex align-items-center ms-auto" style={{ maxWidth: '85%' }}>
+<FormLabel htmlFor="wd-subtype" className="mb-0 wd-label wd-top-left">Submittion Type</FormLabel>
+<div className="mt-4 wd-straight-border-two">
+<FormGroup className="mb-3 mt-3" controlId="wd-subtype">
+
+    <FormControl 
+    as="select"
+    id="wd-subtype"
+    style={{appearance: 'auto'}}
+    >
     <option selected value="ONLINE">Online</option>
     <option value="IN PERSON">In Person</option>
-</select>
-<br/>
-<br/>
-<label>Online Entry Options</label><br/>
-
-<input type="checkbox" name="check-online" id="wd-chkbox-text"/>
-<label htmlFor="wd-chkbox-text">Text Entry</label><br/>
-
-<input type="checkbox" name="check-online" id="wd-chkbox-url"/>
-<label htmlFor="wd-chkbox-url">Website URL</label><br/>
-
-<input type="checkbox" name="check-online" id="wd-chkbox-recordings"/>
-<label htmlFor="wd-chkbox-recordings">Media Recordings</label><br/>
-
-<input type="checkbox" name="check-online" id="wd-chkbox-annotation"/>
-<label htmlFor="wd-chkbox-annotation">Student Annotation</label><br/>
-
-<input type="checkbox" name="check-online" id="wd-chkbox-uploads"/>
-<label htmlFor="wd-chkbox-uploads">File Uploads</label>
-
-          </td>
-        </tr>
-<br/>
-        <tr>
-          <td align="right" valign="top">
-            <label htmlFor="wd-assign">Assign to</label>
-          </td>
-          <td>
-            <input id="wd-assign" value="Everyone" />
-          </td>
-        </tr>  
+  </FormControl>
 
 <br/>
+<span className="wd-bold d-block" style={{ marginTop: '1px' }} >Online Entry Options</span>
+<br/>
+<div className="form-check">
+<input 
+type="checkbox" 
+className="form-check-input" 
+id="wd-chkbox-text"
+name="check-online"
+/>
+<label className="form-check-label" htmlFor="wd-chkbox-text">
+  Text Entry
+  </label>
+  </div>
 
-        <tr>
-          <td align="right" valign="top">
-            <label htmlFor="wd-date">Due</label>
-          </td>
-          <td>
-          <input type="date"
-       value="2024-05-13"
-       id="wd-date"/><br/>
-          </td>
-        </tr> 
+<div className="form-check">
+<input 
+type="checkbox" 
+className="form-check-input" 
+id="wd-chkbox-url"
+name="check-online"
+/>
+<label className="form-check-label" htmlFor="wd-chkbox-url">
+ Website URL
+  </label>
+  </div>
+
+<div className="form-check">
+<input 
+type="checkbox" 
+className="form-check-input" 
+id="wd-chkbox-recordings"
+name="check-online"
+/>
+<label className="form-check-label" htmlFor="wd-chkbox-recordings">
+  Media Recordings
+  </label>
+  </div>
+
+<div className="form-check">
+
+<input 
+type="checkbox" 
+className="form-check-input" 
+id="wd-chkbox-annotation"
+name="check-online"
+/>
+<label className="form-check-label" htmlFor="wd-chkbox-annotation">
+Student Annotation
+  </label>
+  </div>
+
+<div className="form-check">
+<input 
+type="checkbox" 
+className="form-check-input" 
+id="wd-chkbox-uploads"
+name="check-online"
+/>
+<label className="form-check-label" htmlFor="wd-chkbox-uploads">
+  File Uploads
+  </label>
+</div>
+</FormGroup>
+</div>
+</div>
+
+  
+<div className="d-flex align-items-center ms-auto" style={{ maxWidth: '85%' }}>
+<FormLabel htmlFor="wd-subtype" className="mb-0 wd-label wd-assign-label">Assign</FormLabel>
+<div className="mt-4 wd-straight-border-two">
+<FormGroup className="mb-3 mt-3" controlId="wd-subtype">
+
+<FormLabel htmlFor="wd-assign" className="mb-0">
+  <span className="wd-bold">Assign to</span>
+  </FormLabel>
+        <FormControl
+        type="text"
+        placeholder="Search"
+        id="wd-assign"
+        className="me-2 mt-2"
+        />
 
 <br/>
+<div className="wd-due">
+<FormLabel htmlFor="wd-due" className="mb-0">
+<span className="wd-bold">Due</span></FormLabel>
+        <FormControl
+        type="datetime-local"
+        value="2025-05-13T11:59"
+        id="wd-due"
+        className="me-2 mt-2"
+        />
+</div>
+<br/>
 
-<tr>
-          <td align="right" valign="top" style={{ paddingRight: '30px' }}>
-          <label htmlFor="wd-dateavail">Available from</label>
-          </td>
-          <td align="right" valign="top" style={{ paddingRight: '120px' }}>
-            <label htmlFor="wd-dateuntil">Until</label>
-          </td>
-          </tr>
-          <tr>
-          <td>
-          <input type="date" value="2024-05-06" id="wd-dateavail"/><br/>
-          </td>
-        
-            <td>
-          <input type="date" value="2024-05-20" id="wd-dateuntil"/><br/>
-          </td>
-        </tr>
-
-</table>
-<svg viewBox="0 0 100 100">
-  <line	x1="-30" y1="7"
-		x2="100" y2="7"
-		stroke="black" />
-</svg>
-
-<div style={{ position: 'absolute', top: '710px', left: '350px'}}>
-<button>Cancel</button> <button>Save</button>
+<div className="wd-from-until d-flex">
+  <div className="mb-3 flex-grow-1">
+<FormLabel htmlFor="wd-from-until" className="mb-0">
+<span className="wd-bold">Available from</span></FormLabel>
+        <FormControl
+        type="datetime-local"
+        value="2025-05-06T12:00"
+        id="wd-due"
+        className="me-3 mt-1"
+        />
+      </div>
+<div className="mb-3 flex-grow-1">
+<FormLabel htmlFor="wd-from-until" className="mb-0">
+<span className="wd-bold">Until</span></FormLabel>
+        <FormControl
+        type="datetime-local"
+        value="2025-05-06T12:00"
+        id="wd-due"
+        className="mt-1"
+        />
 
 </div>
 </div>
+
+
+  </FormGroup>
+</div>
+</div>
+
+<hr className="mt-5"/>
+
+<div className="d-flex justify-content-end">
+        <Button variant="secondary" 
+                className="me-2" 
+                id="wd-cancel-button"
+                >
+         Cancel </Button> 
+
+        <Button className="me-2 bg-danger" 
+                id="wd-save-button"
+                variant="secondary">
+         Save </Button>  
+    </div>
+
+</Form>
+</div>
+</div>
+</div>
+</div>
+
 );}

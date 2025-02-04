@@ -1,0 +1,6 @@
+.wd-rounded-border {
+    border-radius: 25px;
+    border: 4px solid black;
+    display: inline-block;
+    color: black;
+   }

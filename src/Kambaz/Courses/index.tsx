@@ -4,18 +4,20 @@ import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
+import { FaAlignJustify } from "react-icons/fa";
+import People from "./People";
 
 export default function Courses() {
     return (
         <div id="wd-courses">
-            <h2>Course 1231</h2>
-            <table />
-            <tr>
-                <td valign="top">
-                    <CourseNavigation />
-                </td>
-                <td valign="top">
-
+            <h2 className="text-danger">Course 1231</h2>
+            <FaAlignJustify className="me-4 fs-4 mb-1"/>
+            
+            <div className="d-flex">
+                <div className="d-none d-md-block">
+            <CourseNavigation />
+</div>
+<div className="flex-fill">
             <Routes>
                 <Route path="/" element={<Navigate to="Home" />} />
                 <Route path="Home" element={<Home />} />
@@ -26,12 +28,12 @@ export default function Courses() {
                 <Route path="Assignments/:aid" element={<AssignmentEditor />} />
                 <Route path="Quizzes" element={<h2>Quizzes</h2>} />
                 <Route path="Grades" element={<h2>Grades</h2>} />
-                <Route path="People" element={<h2>People</h2>} />
+                <Route path="People" element={<People />} />
 
             </Routes>
 
-                </td>
-            </tr>
+              </div>
+</div>
         </div>
-    )
+    );
 }

@@ -3,18 +3,14 @@ import Account from "./Account";
 import Dashboard from "./Dashboard";
 import KambazNavigation from "./Navigation";
 import Courses from "./Courses";
+import "./styles.css";
 
 
 export default function Kambaz() {
     return (
-<div>
-    <table>
-        <tr>
-        <td valign="top">
+<div id="wd-kambaz">
            <KambazNavigation />
-            </td>
-            <td valign="top">
-                </td> 
+   <div className="wd-main-content-offset p-3">       
         <Routes>
             <Route path="/" element={<Navigate to="Account" />} />
             <Route path="/Account/*" element={<Account />} />
@@ -23,9 +19,8 @@ export default function Kambaz() {
             <Route path="/Calendar" element={<h2>Calendar</h2>} />
             <Route path="/Inbox" element={<h2>Inbox</h2>} />
             </Routes>
-            </tr>
-        </table>
-
+</div>
       </div>
+
   );}
   
