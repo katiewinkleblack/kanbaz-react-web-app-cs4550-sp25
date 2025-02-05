@@ -4,14 +4,15 @@ export default function Lab1() {
             <h2>Lab 1</h2>
 
 <h3>Katherine Winkleblack | Section: 02 </h3>
+<br/>
 
             <h4>Github Repository Link</h4>
 Please
-<a href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a1/src" 
+<a href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a2/src" 
 id="wd-github"> click here </a>
-to be directed to Repository - clarify it is on Branch "a1"<br/>
+to be directed to Repository - clarify it is on Branch "a2"<br/>
 
-<br/>
+<br/><br/>
 
             <h3>HTML Examples</h3>
             <div id="wd-h-tag">
