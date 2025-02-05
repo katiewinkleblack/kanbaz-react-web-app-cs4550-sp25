@@ -180,7 +180,7 @@ name="check-online"
   <div className="mt-2 wd-straight-border wd-height wd-kambaz-relative">
     
   <span id="wd-assign-everyone"
-  className="position-absolute" style={{ left: '55px', top: '25%'}}>
+  className="position-absolute" style={{ left: '65px', top: '25%'}}>
   <FaXmark  className="fs-5"/>
   </span>
 <input
