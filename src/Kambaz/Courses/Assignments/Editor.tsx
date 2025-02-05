@@ -2,7 +2,7 @@ import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap
 
 export default function AssignmentEditor() {
     return (
-<div className="wd-padding-right">
+<div id="wd-padding-right-left">
 <div id="wd-assignments-editor">
    <div id="wd-bootstrapforms">
      <div id="wd-css-styling-forms">  

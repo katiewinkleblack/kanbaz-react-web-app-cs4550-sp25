@@ -4,11 +4,19 @@ import LessonControlButtons from "../LessonControlButtons";
 import AssignmentControlButtons from "../AssignmentControlButtons";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { MdAssignment } from "react-icons/md";
+import AssignmentHeader from "./AssignmentHeader";
 
 
 export default function Assignments() {
     return (
-     <div className="wd-assignements-dev">
+
+   <div id="wd-padding-right-left">
+      <AssignmentHeader/>
+      <div className="mt-5">
+
+      </div>
+     
+   
         <ListGroup className="rounded-0" id="wd-assignments">
         <ListGroup.Item className="wd-module p-0 mmb-4 fs-5 border-grey">
           <div className="wd-title p-3 ps-2 wd-background-assignment">
@@ -97,7 +105,6 @@ export default function Assignments() {
     </ListGroup.Item>
     </ListGroup>
 
-         
-      </div>
+    </div>
   );}
   

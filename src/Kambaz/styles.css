@@ -207,4 +207,49 @@ body * { font-family:
     color: black;
    }
 
+  #wd-collapse-all {
+    border-radius: 3px;
+    background-color: #F1F1F4;
+   }
+
+   #wd-module-add-button {
+    border-radius: 3px;
+   }
+
+  #wd-background-for-titles {
+    background-color: #F1F1F4;
+   }
+
+
+   #wd-assignment-grey {
+    color: gray;
+    padding-left:  60px;
+   }
+
+   #wd-padding-right-assignments{
+    padding-right: 40px !important;
+   }
+
+   #wd-padding-right-left {
+    padding-left: 60px;
+    padding-right: 165px;
+   }
+
+   #wd-padding-left-assignments{
+    padding-left: 60px;
+   }
+
+   #wd-padding-right-left-modules {
+    padding-left: 40px;
+    padding-right: 20px;
+   }
+
+   #wd-padding-module-left {
+    padding-right: 30px;
+   }
+
+   .wd-padding-left-assignment-btn {
+    padding-left: 40px;
+   }
+
 

@@ -4,23 +4,23 @@ import { Button, Dropdown } from "react-bootstrap";
 import { IoBan } from "react-icons/io5";
 export default function ModulesControls() {
  return (
-   <div id="wd-modules-controls" className="d-flex justify-content-between align-items-center mb-3">
+   <div id="wd-modules-controls" className="d-flex align-items-center mb-3">
 
-    <div className="d-flex">
+    <div className="d-flex ms-auto">
         <Button variant="secondary" 
-                size="lg" 
-                className="me-2" 
+                
+                className="me-2 wd-home-page-control-radius" 
                 id="wd-collapse-all">
          Collapse All </Button> 
 
         <Button className="me-2" 
-                id="wd-view-progress"
-                size="lg"
+                id="wd-collapse-all"
+            
                 variant="secondary">
          View Progress </Button>  
 
      <Dropdown className="me-2">
-       <Dropdown.Toggle variant="secondary" size="lg" id="wd-publish-all-btn">
+       <Dropdown.Toggle variant="secondary"  id="wd-collapse-all">
          <GreenCheckmark /> Publish All
        </Dropdown.Toggle>
        <Dropdown.Menu>
@@ -39,7 +39,7 @@ export default function ModulesControls() {
        </Dropdown.Menu>
      </Dropdown>
 
-     <Button variant="danger" size="lg" className="me-1 float-end" id="wd-add-module-btn">
+     <Button variant="danger" className="me-1" id="wd-module-add-button">
        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
        Module
      </Button>
