@@ -1,4 +1,5 @@
 import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import { FaXmark } from "react-icons/fa6";
 
 export default function AssignmentEditor() {
     return (
@@ -47,7 +48,8 @@ export default function AssignmentEditor() {
           <FormControl
             type="number"
             id="wd-points" 
-            value={100}
+            defaultValue={100}
+            max={100}
             />
          </div>
         </FormGroup>
@@ -173,15 +175,25 @@ name="check-online"
 <div className="mt-4 wd-straight-border-two">
 <FormGroup className="mb-3 mt-3" controlId="wd-subtype">
 
-<FormLabel htmlFor="wd-assign" className="mb-0">
+<div id="wd-assign" className="mb-0">
   <span className="wd-bold">Assign to</span>
-  </FormLabel>
-        <FormControl
+  <div className="mt-2 wd-straight-border wd-height wd-kambaz-relative">
+    
+  <span id="wd-assign-everyone"
+  className="position-absolute" style={{ left: '55px', top: '25%'}}>
+  <FaXmark  className="fs-5"/>
+  </span>
+<input
         type="text"
-        placeholder="Search"
-        id="wd-assign"
-        className="me-2 mt-2"
+        value="Everyone"
+        id="wd-background-for-everyone"
+        className="form-control"
+        style={{height: '40px',
+            borderRadius: '3px'}}
         />
+    </div>
+    </div>
+   
 
 <br/>
 <div className="wd-due">
@@ -191,7 +203,7 @@ name="check-online"
         type="datetime-local"
         value="2025-05-13T11:59"
         id="wd-due"
-        className="me-2 mt-2"
+        className="me-2 mt-1"
         />
 </div>
 <br/>

@@ -19,7 +19,8 @@ export default function Dashboard() {
             <Card.Body>
               <Card.Title className="wd-dashboard-course-title">CS 1231</Card.Title>
               <Card.Text className="wd-course-description">Object Oriented Design Prof. D</Card.Text>
-              <Button variant="primary"> CS 1231 Object Orient Design </Button>
+              <Button id="wd-button-dashboard"
+              variant="primary"> CS 1231 Object Orient Design </Button>
             </Card.Body>
           </Link>
         </Card>
@@ -33,7 +34,8 @@ export default function Dashboard() {
             <Card.Body>
               <Card.Title className="wd-dashboard-course-title">CS 1232</Card.Title>
               <Card.Text className="wd-course-description">Software Development</Card.Text>
-              <Button variant="primary"> CS 1232 Software Dev </Button>
+              <Button id="wd-button-dashboard"
+              variant="primary"> CS 1232 Software Dev </Button>
             </Card.Body>
           </Link>
         </Card>
@@ -48,7 +50,8 @@ export default function Dashboard() {
             <Card.Body>
               <Card.Title className="wd-dashboard-course-title">CS 1233</Card.Title>
               <Card.Text className="wd-course-description">Fundies 1</Card.Text>
-              <Button variant="primary"> CS 1233 Fundie1 </Button>
+              <Button id="wd-button-dashboard"
+              variant="primary"> CS 1233 Fundies 1 </Button>
             </Card.Body>
           </Link>
         </Card>
@@ -63,7 +66,8 @@ export default function Dashboard() {
             <Card.Body>
               <Card.Title className="wd-dashboard-course-title">CS 1234</Card.Title>
               <Card.Text className="wd-course-description">Fundies 2</Card.Text>
-              <Button variant="primary"> CS 1234 Fundies 2 </Button>
+              <Button id="wd-button-dashboard"
+              variant="primary"> CS 1234 Fundies 2 </Button>
             </Card.Body>
           </Link>
         </Card>
@@ -77,7 +81,8 @@ export default function Dashboard() {
             <Card.Body>
               <Card.Title className="wd-dashboard-course-title">CS 1235</Card.Title>
               <Card.Text className="wd-course-description">Algorithms and Date</Card.Text>
-              <Button variant="primary"> CS 1235 Algorithms and Data </Button>
+              <Button id="wd-button-dashboard"
+              variant="primary"> CS 1235 Algorithms and Data </Button>
             </Card.Body>
           </Link>
         </Card>
@@ -91,7 +96,8 @@ export default function Dashboard() {
             <Card.Body>
               <Card.Title className="wd-dashboard-course-title">CS 1236</Card.Title>
               <Card.Text className="wd-course-description">SDiscrete Structures</Card.Text>
-              <Button variant="primary"> CS 1236 Discrete Structures</Button>
+              <Button id="wd-button-dashboard"
+              variant="primary"> CS 1236 Discrete Structures</Button>
             </Card.Body>
           </Link>
         </Card>
@@ -105,7 +111,8 @@ export default function Dashboard() {
             <Card.Body>
               <Card.Title className="wd-dashboard-course-title">CS 1237</Card.Title>
               <Card.Text className="wd-course-description">Data Models</Card.Text>
-              <Button variant="primary"> CS 1237 Data Models </Button>
+              <Button id="wd-button-dashboard"
+              variant="primary"> CS 1237 Data Models </Button>
             </Card.Body>
           </Link>
         </Card>
@@ -119,7 +126,8 @@ export default function Dashboard() {
             <Card.Body>
               <Card.Title className="wd-dashboard-course-title">CS 1238</Card.Title>
               <Card.Text className="wd-course-description">Web Development</Card.Text>
-              <Button variant="primary"> CS 1238 Web Development </Button>
+              <Button id="wd-button-dashboard"
+              variant="primary"> CS 1238 Web Development </Button>
             </Card.Body>
           </Link>
         </Card>

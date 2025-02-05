@@ -253,3 +253,26 @@ body * { font-family:
    }
 
 
+   #wd-button-dashboard {
+    background-color: #dc3545;
+    color: white;
+    border-color: darkred;
+  }
+
+  .wd-height {
+    height: 60px;
+  }
+
+  .wd-kambaz-relative {
+    position: relative;
+  }
+
+  #wd-assign-everyone {
+    color: grey;
+    padding-left: 60px;
+  }
+
+  #wd-background-for-everyone {
+    background-color: #F1F1F4;
+    width: 150px;
+   }
