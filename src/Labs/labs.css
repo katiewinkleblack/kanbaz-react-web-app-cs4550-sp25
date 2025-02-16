@@ -1,0 +1,9 @@
+.wd-highlight-labs {
+    background-color: darkblue;
+    color: white;
+}
+
+.wd-highlight-labs {
+    background-color: blue !important;
+    color: white !important;
+}

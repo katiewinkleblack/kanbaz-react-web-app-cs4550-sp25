@@ -1,19 +1,35 @@
 import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import { FaXmark } from "react-icons/fa6";
+import { useNavigate, useParams } from "react-router-dom";
+import * as db from "../../Database"
 
 export default function AssignmentEditor() {
+  const { aid, cid } = useParams();
+  const assignments = db.assignments;
+  const navigate = useNavigate();
+
+  const handleButton = () => {
+    navigate(`/Kambaz/Courses/${cid}/Assignments`);
+  }
+
     return (
 <div id="wd-padding-right-left">
+
 <div id="wd-assignments-editor">
+{assignments.filter((assignment: any) => assignment._id === aid)
+          .map((assignment: any) => (
    <div id="wd-bootstrapforms">
      <div id="wd-css-styling-forms">  
         <Form>
             <FormGroup className="mb-3" controlId="wd-name">
 
-              <FormLabel htmlFor="wd-name" className="mb-0">Assignment Name</FormLabel>
+              <FormLabel htmlFor="wd-name" className="mb-0">
+               <div style={{ fontSize: "14px"}} >
+                Assignment Name</div>
+                </FormLabel>
         <FormControl
         type="text"
-        placeholder="name"
+        value={assignment.title}
         id="wd-assign"
         className="me-2 mt-2"
         />
@@ -48,7 +64,7 @@ export default function AssignmentEditor() {
           <FormControl
             type="number"
             id="wd-points" 
-            defaultValue={100}
+            value={assignment.points}
             max={100}
             />
          </div>
@@ -201,7 +217,7 @@ name="check-online"
 <span className="wd-bold">Due</span></FormLabel>
         <FormControl
         type="datetime-local"
-        value="2025-05-13T11:59"
+        value={assignment.editorDue}
         id="wd-due"
         className="me-2 mt-1"
         />
@@ -214,7 +230,7 @@ name="check-online"
 <span className="wd-bold">Available from</span></FormLabel>
         <FormControl
         type="datetime-local"
-        value="2025-05-06T12:00"
+        value={assignment.editorAvail}
         id="wd-due"
         className="me-3 mt-1"
         />
@@ -243,18 +259,21 @@ name="check-online"
         <Button variant="secondary" 
                 className="me-2" 
                 id="wd-cancel-button"
+                onClick={handleButton}
                 >
          Cancel </Button> 
 
         <Button className="me-2 bg-danger" 
                 id="wd-save-button"
-                variant="secondary">
+                variant="secondary"
+                onClick={handleButton}>
          Save </Button>  
     </div>
 
 </Form>
 </div>
 </div>
+          ))}
 </div>
 </div>
 

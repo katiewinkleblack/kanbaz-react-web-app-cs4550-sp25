@@ -13,6 +13,12 @@ body * {  font-family: Arial, Helvetica, sans-serif;  }
   border-left: 3px solid black !important;
 }
 
+.wd-text-grey {
+  margin-top:25px;
+  color: gray;
+}
+
+
 .wd-border-greyish {
     border: #D3D3D3;
 }
@@ -253,11 +259,6 @@ body * { font-family:
    }
 
 
-   #wd-button-dashboard {
-    background-color: #dc3545;
-    color: white;
-    border-color: darkred;
-  }
 
   .wd-height {
     height: 60px;
@@ -276,3 +277,103 @@ body * { font-family:
     background-color: #F1F1F4;
     width: 150px;
    }
+
+   .wd-border-piazza-nav-bar {
+    border-radius: 0px;
+    height: 55px;
+    background-color: #007BB5;
+    color: white;
+    border: 1px solid gray;
+   }
+
+   .wd-font-family {
+    font-family: 'Roboto', sans-serif;
+   }
+
+   .wd-logo-height {
+    margin-top: 18px;
+    padding-left: 15px;
+   }
+
+  .wd-q-a {
+    position:absolute;
+    left: 53%;
+    color: white;
+    text-decoration: underline;
+  }
+
+  .wd-nav-height {
+    margin-top: 18px;
+  }
+
+  .wd-hw-folder-nav-bar {
+    border-radius: 0%;
+    height: 30px;
+    background-color: #E6E6EA;
+    color: gray;
+    border: 1px solid lightgrey;
+
+  }
+
+
+  .wd-hw-height {
+    margin-top: 4px;
+    padding-left: 15px;
+   }
+
+.wd-right-page-bg {
+  border-radius: 0%;
+  border-color: #F1F1F4;
+  background-color: #F6F6F9;
+  padding-left: 20px;
+  width: 60%;
+  margin: auto;
+  margin-right: 0%;
+  height: 100vh;
+  border: 1px solid lightgrey;
+
+}
+
+.wd-class-glance {
+  border-radius: 5px;
+  background-color: #fff;
+  height: 200px;
+  width: 97%;
+  margin: auto;
+  margin-top: 3px;
+  margin-right:25px;
+  border: 1px solid lightgrey;
+}
+
+#wd-button-dashboard {
+  background-color: #dc3545;
+  color: white;
+  border-color: darkred;
+}
+
+.wd-padding-left-class {
+  padding-left: 15px;
+}
+
+.wd-post-stats {
+  margin-top: 10px;
+  padding-left: 10px;
+  display:flex;
+  align-items: center;
+  gap:5px;
+}
+
+.wd-show-border {
+  color: salmon;
+ }
+
+.wd-highlight-border {
+  border: 2px solid lightskyblue;
+  background-color: skyblue;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.wd-border-none {
+  border: none;
+}
