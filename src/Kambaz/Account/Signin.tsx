@@ -1,5 +1,4 @@
 import { Button, FormControl } from "react-bootstrap";
-import { HiStrikethrough } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 export default function Signin() {
   return (

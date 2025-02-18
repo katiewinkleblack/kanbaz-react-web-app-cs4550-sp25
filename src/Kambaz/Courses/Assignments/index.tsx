@@ -10,7 +10,7 @@ import * as db from "../../Database";
 
 
 export default function Assignments() {
-  const { cid, _id } = useParams();
+  const { cid } = useParams();
   const assignments = db.assignments;
 
     return (
