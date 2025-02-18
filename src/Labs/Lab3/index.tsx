@@ -37,6 +37,13 @@ export default function Lab3() {
     return(
     <div id="wd-lab-3" className="wd-lab-3-padding">
     <h2>Lab 3</h2>
+
+    <h4>Github Repository Link</h4>
+Please
+<a href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a3" 
+id="wd-github"> click here </a>
+to be directed to Repository - clarify it is on Branch "a3"<br/>
+
     <VariablesAndConstants/>
     <VariableTypes/>
     <BooleanVariables/>

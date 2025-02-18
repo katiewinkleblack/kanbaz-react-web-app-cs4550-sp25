@@ -8,7 +8,7 @@ export default function Lab1() {
 
             <h4>Github Repository Link</h4>
 Please
-<a href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a2/src" 
+<a href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a3" 
 id="wd-github"> click here </a>
 to be directed to Repository - clarify it is on Branch "a2"<br/>
 
