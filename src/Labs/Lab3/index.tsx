@@ -32,7 +32,7 @@ import VariableTypes from "./VariableTypes";
 import VariablesAndConstants from "./VariablesAndConstants";
 import "./index3.css";
 import TodoList from "./todos/TodoList";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 
 export default function Lab3() {
 
