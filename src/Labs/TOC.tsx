@@ -27,6 +27,11 @@ export default function TOC() {
             "/Labs/Lab3" ? 'wd-highlight-labs' : ''}> Lab 3 </Nav.Link>
      </Nav.Item>
      <Nav.Item>
+       <Nav.Link as={Link} to="/Labs/Lab4" id="wd-l4"
+          className={location.pathname ===
+            "/Labs/Lab4" ? 'wd-highlight-labs' : ''}> Lab 4 </Nav.Link>
+     </Nav.Item>
+     <Nav.Item>
        <Nav.Link as={Link} to="/Kambaz" id="wd-kambaz-labs">Kambaz</Nav.Link>
      </Nav.Item>
      <Nav.Item>
