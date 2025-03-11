@@ -1,4 +1,4 @@
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Add from "./Add";
 import AddingAndRemovingToFromArrays from "./ArrayAddRemove";
 import ArrayIndexAndLength from "./ArrayIndexLength";
@@ -32,7 +32,6 @@ import VariableTypes from "./VariableTypes";
 import VariablesAndConstants from "./VariablesAndConstants";
 import "./index3.css";
 import { ListGroup } from "react-bootstrap";
-import store from "../Lab4/store";
 import TodoList from "./todos/TodoList";
 
 
