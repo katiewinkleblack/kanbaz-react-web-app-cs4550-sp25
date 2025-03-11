@@ -1,29 +1,29 @@
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 export default function AccountNavigation() {
   const location = useLocation();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const links = currentUser ? [{name: "Profile", path: "/Kambaz/Account/Profile"}] 
+  : [{name: "Signin", path: "/Kambaz/Account/Signin" }, 
+    {name:"Signup", path: "/Kambaz/Account/Signup"}];
+
+  const { pathname } = useLocation();
+
   return (
     <div id="wd-account-navigation" className="list-group fs-5 round-0">
 
-<Link to="/Kambaz/Account/Signin" 
-      id="wd-account-signin"
-      className={`list-group-item ${location.pathname ===
-        "/Kambaz/Account/Signin" ? "text-danger wd-border-for-navigation" : "text-dark border-0"}`}
-        > Signin
-     </Link>
-
-      <Link to="/Kambaz/Account/Signup" 
-      id="wd-account-signup"
-      className={`list-group-item ${location.pathname ===
-        "/Kambaz/Account/Signup" ? "text-danger wd-border-for-navigation" : "text-dark border-0"}`}
-        > Signup
-     </Link>
-
-      <Link to="/Kambaz/Account/Profile" 
-      id="wd-account-profile"
-      className={`list-group-item ${location.pathname ===
-        "/Kambaz/Account/Profile" ? "text-danger wd-border-for-navigation" : "text-dark border-0"}`}
-        > Profile
-     </Link>
+{links.map(({name, path}) => (
+  <Link
+  key={path}
+  to={path}
+  id={`wd-account-${name.toLowerCase()}`}
+  className={`list-group-item ${pathname === path 
+    ? "text-danger wd-border-for-navigation"
+    : "text-dark border-0"
+  }`}>
+    {name}
+  </Link>
+))}
         
     </div>
 );}

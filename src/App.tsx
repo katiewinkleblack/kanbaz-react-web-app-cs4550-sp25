@@ -3,9 +3,13 @@ import Labs from "./Labs";
 import { HashRouter } from "react-router";
 import { Routes } from "react-router";
 import Kambaz from "./Kambaz";
+import { Provider } from "react-redux";
+import store from "./Kambaz/store";
 
 function App() {
   return (
+
+    <Provider store={store}>
     <HashRouter>
      <div>
       <Routes>
@@ -16,6 +20,7 @@ function App() {
       </Routes>
      </div>
     </HashRouter>
+    </Provider>
   );
 }
 

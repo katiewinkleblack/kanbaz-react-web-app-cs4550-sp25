@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import Add from "./Add";
 import AddingAndRemovingToFromArrays from "./ArrayAddRemove";
 import ArrayIndexAndLength from "./ArrayIndexLength";
@@ -31,22 +31,26 @@ import TernaryOperator from "./TernaryOperator";
 import VariableTypes from "./VariableTypes";
 import VariablesAndConstants from "./VariablesAndConstants";
 import "./index3.css";
-import TodoList from "./todos/TodoList";
 import { ListGroup } from "react-bootstrap";
+import store from "../Lab4/store";
+import TodoList from "./todos/TodoList";
+
+
 
 export default function Lab3() {
-
-    const { todos } = useSelector((state: any) => state.todoReducer);
   
+  const { todos } = useSelector((state: any) => state.todoReducer);
 
-    console.log("Hello World");
+
     return(
+
     <div id="wd-lab-3" className="wd-lab-3-padding">
     <h2>Lab 3</h2>
 
+
 <ListGroup>
         {todos.map((todo: any) => (
-          <ListGroup.Item key={todo.id}>
+          <ListGroup.Item key={todo.id} >
             {todo.title}
           </ListGroup.Item>
         ))}

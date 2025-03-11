@@ -1,7 +1,17 @@
 import { Button } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AssignmentHeader() {
+    const { cid } = useParams();
+  const navigate = useNavigate();
+
+    const handleAssignment = () => {
+        const newAid = uuidv4();
+        navigate(`/Kambaz/Courses/${cid}/Assignments/${newAid}`)
+      }
+
     return (
 
 <div id="wd-assignment-header" className="d-flex align-items-center mb-3">
@@ -32,7 +42,9 @@ className="position-absolute" style={{ left: '-40px', top: '20%'}}>
 
         <Button className="me-2 bg-danger" 
                 id="wd-save-button"
-                variant="secondary">  +Assignment  </Button>  
+                variant="secondary"
+                onClick={handleAssignment}
+                >  +Assignment  </Button>  
          </div>
          </div>
 

@@ -1,33 +1,59 @@
-import { ListGroup } from "react-bootstrap";
-import { BsGripVertical } from "react-icons/bs";
+import { Button, ListGroup, Modal, ModalBody, ModalFooter, ModalTitle } from "react-bootstrap";
+import { BsGripVertical, BsTrash } from "react-icons/bs";
 import LessonControlButtons from "../LessonControlButtons";
 import AssignmentControlButtons from "../AssignmentControlButtons";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { MdAssignment } from "react-icons/md";
 import AssignmentHeader from "./AssignmentHeader";
-import { useParams } from "react-router-dom";
-import * as db from "../../Database";
-
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteAssignment } from "./assigmentReducer";
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
+ 
 
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments = db.assignments;
+  const navigate = useNavigate();
+
+  const assignments = useSelector((state: any) => state.assignmentReducer?.assignments ?? [] );
+
+ 
+ 
+  const dispatch = useDispatch();
+
+  const courseAssignments = assignments?.filter((a: any) => a.course === cid);
+
+  const [modal, setModal] = useState(false);
+  const [selectedAssignment, setSelectedAssignment] = useState<any>(null);
+
+  const handleDelete = ((a: any) => {
+    setSelectedAssignment(a);
+    setModal(true)
+  });
+
+  const deleteConfirmation = () => {
+    if (selectedAssignment) {
+      dispatch(deleteAssignment(selectedAssignment._id));
+    }
+    setModal(false);
+    selectedAssignment(null);
+  }
+
 
     return (
 
    <div id="wd-padding-right-left">
       <AssignmentHeader/>
-      <div className="mt-5">
-
-      </div>
      
-   
+     
+  
         <ListGroup className="rounded-0" id="wd-assignments">
-        {assignments.filter((assignment: any) => assignment.course === cid)
 
-          .map((assignment: any) => (
+          
+        {courseAssignments.map((assignment: any) => (
 
-        <ListGroup.Item 
+        <ListGroup.Item key={assignment._id}
         className="wd-module p-0 mmb-4 fs-5 border-grey"
         >
           <div className="wd-title p-3 ps-2 wd-background-assignment">
@@ -65,11 +91,44 @@ export default function Assignments() {
                     </a>
                     </ListGroup.Item>
                     </ListGroup>
+
+<div className="p-3">
+  <Button variant="danger" onClick={() => handleDelete(assignment)}>
+    <BsTrash/>
+  </Button>
+</div>
+
+
+
                     </ListGroup.Item>
 
  ))}
 
+
 </ListGroup>
+
+
+<Modal show={modal} onHide={() => setModal(false)}  centered>
+  <Modal.Header closeButton>
+    <ModalTitle>Confirm Delete</ModalTitle>
+    </Modal.Header>
+
+    <ModalBody>
+      Are you sure you wish to delete Assignment?
+    </ModalBody>
+
+    <ModalFooter>
+      <Button variant="secondary" onClick={() => setModal(false)}>
+        Cancel
+      </Button>
+
+    <Button variant="danger" onClick={deleteConfirmation}>
+      Delete
+    </Button>
+    </ModalFooter>
+</Modal>
+
+
 </div>
   );}
   

@@ -1,26 +1,100 @@
 import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import { FaXmark } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
-import * as db from "../../Database"
+import { useDispatch, useSelector } from "react-redux";
+import { addAssignment, deleteAssignment, editAssignment } from "./assigmentReducer";
+import { useEffect, useState } from "react";
 
 export default function AssignmentEditor() {
   const { aid, cid } = useParams();
-  const assignments = db.assignments;
+  const assignments = useSelector((state: any) => state.assignmentReducer?.assignments ?? []);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const assignmentId = aid ?? "";
+
+  
+
+  console.log("🌐 Current URL Assignment ID (aid):", assignmentId);
+  console.log("📜 Redux Assignments:", assignments);
+
+  const existingAssignment = assignments.find((a: any) => a._id === assignmentId) ?? null;
+
+
+  const [title, setTitle] = useState(existingAssignment?.title || "New Assignment");
+  const [points, setPoints] = useState(existingAssignment?.points || "100");
+  const [availMonth, setAvailMonth] = useState(existingAssignment?.availMonth || "");
+  const [availDate, setAvailDate] = useState(existingAssignment?.availDate || "");
+  const [availTime, setAvailTime] = useState(existingAssignment?.availTime || "");
+  const [dueMonth, setDueMonth] = useState(existingAssignment?.dueMonth || "");
+  const [dueDate, setDueDate] = useState(existingAssignment?.dueDate || "");
+  const [dueTime, setDueTime] = useState(existingAssignment?.dueTime || "");
+  const [editorAvail, setEditorAvail] = useState(existingAssignment?.editorAvail || "");
+  const [editorDue, setEditorDue] = useState(existingAssignment?.editorDue || "");
+
+
+
 
   const handleButton = () => {
     navigate(`/Kambaz/Courses/${cid}/Assignments`);
   }
 
+
+  useEffect(() => {
+    if (existingAssignment) {
+        setTitle(existingAssignment.title);
+        setPoints(existingAssignment.points);
+        setAvailMonth(existingAssignment.availMonth);
+        setAvailDate(existingAssignment.availDate);
+        setAvailTime(existingAssignment.availTime);
+        setDueMonth(existingAssignment.dueMonth);
+        setDueDate(existingAssignment.dueDate);
+        setDueTime(existingAssignment.dueTime);
+        setEditorAvail(existingAssignment.editorAvail);
+        setEditorDue(existingAssignment.editorDue);
+
+    }
+    
+  }, [existingAssignment]);
+
+
+
+
+  const handleSave = () => {
+    const updatedAssignment = {
+      _id: assignmentId,
+      title,
+      course: cid ?? "",
+      availMonth,
+      availDate,
+      availTime,
+      dueMonth,
+      dueDate,
+      dueTime,
+      points,
+      editorAvail,
+      editorDue,
+    };
+
+    if (existingAssignment) {
+      dispatch(editAssignment({_id: assignmentId, updateAssignment: updatedAssignment}));
+    } else {
+      dispatch(addAssignment(updatedAssignment));
+    }
+    navigate(`/Kambaz/Courses/${cid}/Assignments`);
+  };
+ 
+  
+
     return (
 <div id="wd-padding-right-left">
 
 <div id="wd-assignments-editor">
-{assignments.filter((assignment: any) => assignment._id === aid)
-          .map((assignment: any) => (
-   <div id="wd-bootstrapforms">
-     <div id="wd-css-styling-forms">  
-        <Form>
+
+<h2>{existingAssignment ? "Edit Assignment" : "New Assignment"} </h2>
+<p>{existingAssignment ? `Editing ${existingAssignment.title}` : "Create a new assignment"}</p>
+
+
+<Form>
             <FormGroup className="mb-3" controlId="wd-name">
 
               <FormLabel htmlFor="wd-name" className="mb-0">
@@ -29,9 +103,10 @@ export default function AssignmentEditor() {
                 </FormLabel>
         <FormControl
         type="text"
-        value={assignment.title}
+        value={title}
         id="wd-assign"
         className="me-2 mt-2"
+        onChange={(e) => setTitle(e.target.value)}
         />
         </FormGroup>
 
@@ -64,8 +139,10 @@ export default function AssignmentEditor() {
           <FormControl
             type="number"
             id="wd-points" 
-            value={assignment.points}
+            value={points}
             max={100}
+            onChange={(e) => setPoints(e.target.value)}
+
             />
          </div>
         </FormGroup>
@@ -217,9 +294,19 @@ name="check-online"
 <span className="wd-bold">Due</span></FormLabel>
         <FormControl
         type="datetime-local"
-        value={assignment.editorDue}
+        value={editorDue}
         id="wd-due"
         className="me-2 mt-1"
+        onChange={(e) => {
+          const dateSelected = new Date(e.target.value);
+          const month = dateSelected.toLocaleString('default', {month: 'long'});
+          const day = dateSelected.getDate().toString();
+
+          setEditorDue(e.target.value)
+          setDueMonth(month);
+          setDueDate(day);
+
+        }}
         />
 </div>
 <br/>
@@ -230,9 +317,19 @@ name="check-online"
 <span className="wd-bold">Available from</span></FormLabel>
         <FormControl
         type="datetime-local"
-        value={assignment.editorAvail}
+        value={editorAvail}
         id="wd-due"
         className="me-3 mt-1"
+        onChange={(e) => {
+          const dateSelected = new Date(e.target.value);
+          const month = dateSelected.toLocaleString('default', {month: 'long'});
+          const day = dateSelected.getDate().toString();
+      
+          setEditorAvail(e.target.value)
+          setAvailDate(day);
+          setAvailMonth(month);
+        }}
+
         />
       </div>
 <div className="mb-3 flex-grow-1">
@@ -240,9 +337,11 @@ name="check-online"
 <span className="wd-bold">Until</span></FormLabel>
         <FormControl
         type="datetime-local"
-        value="2025-05-06T12:00"
+        value={editorDue}
         id="wd-due"
         className="mt-1"
+        onChange={(e) => setEditorDue(e.target.value)
+        }
         />
 
 </div>
@@ -266,15 +365,13 @@ name="check-online"
         <Button className="me-2 bg-danger" 
                 id="wd-save-button"
                 variant="secondary"
-                onClick={handleButton}>
+                onClick={handleSave}>
          Save </Button>  
     </div>
 
 </Form>
 </div>
 </div>
-          ))}
-</div>
-</div>
+          
 
 );}

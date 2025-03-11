@@ -1,69 +1,48 @@
+import { useEffect, useState } from "react";
 import { Button, FormControl } from "react-bootstrap";
-import { Link } from "react-router-dom";
-export default function Profile() {
-  return (
-    <div id="wd-profile-screen">
-      <h3>Profile</h3>
-      <FormControl
-      id="wd-username"
-      defaultValue="katie" 
-      placeholder="username" 
-      className="mb-2"
-      style={{ maxWidth: '300px', width: '900px'}}
-      />
-      <FormControl
-      id="wd-password"
-      defaultValue="123"   
-      placeholder="password" 
-      className="mb-2"
-      />
-      <FormControl
-      id="wd-first-name"
-      defaultValue="Katie" 
-      placeholder="First Name" 
-      className="mb-2"
-      />
-      <FormControl
-      id="wd-last-name"
-      defaultValue="Winkleblack" 
-      placeholder="Last Name" 
-      className="mb-2"
-      />
-      <FormControl
-      id="wd-date"
-      type="date"
-      className="mb-2"
-      />
-      <FormControl
-      id="wd-email"
-      defaultValue="winkleblack@gmail.com" 
-      type="email" 
-      className="mb-2"
-      />
-      <FormControl 
-        as="select"
-        id="wd-subtype"
-        className="mb-2"
-        style={{appearance: 'auto'}}
-     >
-    <option value="USER">User</option>
-    <option value="FACULTY">Faculty</option>
-    <option value="ADMIN">Admin</option>
-    <option selected value="STUDENT">Student</option>
-  </FormControl>
-  <Link
-      to="/Kambaz/Account/Signin" 
-      id="wd-profile-button">
-      <Button 
-                variant="secondary"
-                className="w-100 mb-2"
-               id="wd-button-account">
-      Signout 
-      </Button>
-      </Link>
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { setCurrentUser } from "./accountReducer";
 
-      <Link  to="/Kambaz/Dashboard"  id="wd-signup-black">
-      Go to Dashboard
-      </Link>
-    </div>
-);}
+export default function Profile() {
+  const [profile, setProfile] = useState<any>({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const fetchProfile = () => {
+    if (!currentUser) return navigate("/Kambaz/Account/Signin");
+    setProfile(currentUser);
+  };
+  const signout = () => {
+    dispatch(setCurrentUser(null));
+    navigate("/Kambaz/Account/Signin");
+  };
+  useEffect(() => { fetchProfile(); }, []);
+  return (
+    <div className="wd-profile-screen">
+      <h3>Profile</h3>
+      {profile && (
+        <div>
+          <FormControl defaultValue={profile.username} id="wd-username" className="mb-2"
+                       onChange={(e) => setProfile({ ...profile, username:  e.target.value })}/>
+          <FormControl defaultValue={profile.password} id="wd-password" className="mb-2"
+                       onChange={(e) => setProfile({ ...profile, password:  e.target.value })}/>
+          <FormControl defaultValue={profile.firstName} id="wd-firstname" className="mb-2"
+                       onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}/>
+          <FormControl defaultValue={profile.lastName} id="wd-lastname" className="mb-2"
+                       onChange={(e) => setProfile({ ...profile, lastName:  e.target.value })}/>
+          <FormControl defaultValue={profile.dob} id="wd-dob" className="mb-2"
+                       onChange={(e) => setProfile({ ...profile, dob: e.target.value })} type="date"/>
+          <FormControl defaultValue={profile.email} id="wd-email" className="mb-2"
+                       onChange={ (e) => setProfile({ ...profile, email: e.target.value })}/>
+          <select onChange={(e) => setProfile({ ...profile, role:  e.target.value })}
+                 className="form-control mb-2" id="wd-role">
+            <option value="USER">User</option>            <option value="ADMIN">Admin</option>
+            <option value="FACULTY">Faculty</option>      <option value="STUDENT">Student</option>
+          </select>
+          <Button onClick={signout} className="w-100 mb-2" id="wd-signout-btn">
+            Sign out
+          </Button>
+        </div>
+      )}
+</div>);}

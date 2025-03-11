@@ -377,3 +377,15 @@ body * { font-family:
 .wd-border-none {
   border: none;
 }
+
+#wd-go-button {
+  background-color: green;
+  color: white;
+  border-color: green;
+}
+
+#wd-show-course-button {
+  background-color: #333333;
+  border-color: #333333;
+  color: white;
+}
