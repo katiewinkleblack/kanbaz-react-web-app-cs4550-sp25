@@ -3,10 +3,8 @@ import ModulesControls from "./ModulesControls";
 import { BsGripVertical } from "react-icons/bs";
 import LessonControlButtons from "./LessonControlButtons";
 import ModuleControlButtons from "./ModuleControlButtons";
-import * as db from "../Database";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { addModule, deleteModule, editModule, updateModule } from "./modulesReducer";
 

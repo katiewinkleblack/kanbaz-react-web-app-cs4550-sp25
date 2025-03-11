@@ -5,16 +5,14 @@ import AssignmentControlButtons from "../AssignmentControlButtons";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { MdAssignment } from "react-icons/md";
 import AssignmentHeader from "./AssignmentHeader";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAssignment } from "./assigmentReducer";
-import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
  
 
 export default function Assignments() {
   const { cid } = useParams();
-  const navigate = useNavigate();
 
   const assignments = useSelector((state: any) => state.assignmentReducer?.assignments ?? [] );
 

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 export default function AccountNavigation() {
-  const location = useLocation();
+ 
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const links = currentUser ? [{name: "Profile", path: "/Kambaz/Account/Profile"}] 
   : [{name: "Signin", path: "/Kambaz/Account/Signin" }, 

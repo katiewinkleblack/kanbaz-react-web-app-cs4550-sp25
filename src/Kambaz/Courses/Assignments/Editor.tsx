@@ -2,7 +2,7 @@ import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap
 import { FaXmark } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addAssignment, deleteAssignment, editAssignment } from "./assigmentReducer";
+import { addAssignment, editAssignment } from "./assigmentReducer";
 import { useEffect, useState } from "react";
 
 export default function AssignmentEditor() {
