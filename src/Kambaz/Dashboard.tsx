@@ -1,6 +1,6 @@
 import { Button, Card, Col, FormControl, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { enrollCourse, unenrollCourse } from "./Account/accountReducer";
 import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
@@ -8,6 +8,7 @@ import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
 export default function Dashboard() {
 
 const dispatch = useDispatch();
+const navigate = useNavigate();
 const courses = useSelector((state: any) => state.courseReducer?.courses || [])
 
 
@@ -147,7 +148,8 @@ const handleUpdateCourse = () => {
 {!isStudent && ( 
 <div className="d-flex justify-content-between p-2">
   <div className="d-flex gap-2">
-  <Button variant="primary" id="wd-go-button"> Go </Button>
+  <Button variant="primary" id="wd-go-button" onClick={() => navigate(`/Kambaz/Courses/${course._id}/Home`)}
+  > Go </Button>
             <Button variant="danger"
                onClick={() => dispatch(deleteCourse(course._id))}
                 className="btn btn-danger float-end"
