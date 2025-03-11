@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import { useState } from "react";
 import ChildStateComponent from "./ChildStateComponent.tsx";
 export default function ParentStateComponent() {
   const [counter, setCounter] = useState(123);
