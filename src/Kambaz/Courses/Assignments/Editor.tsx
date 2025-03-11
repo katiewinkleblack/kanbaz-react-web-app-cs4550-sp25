@@ -20,7 +20,7 @@ export default function AssignmentEditor() {
   const existingAssignment = assignments.find((a: any) => a._id === assignmentId) ?? null;
 
 
-  const [title, setTitle] = useState(existingAssignment?.title || "New Assignment");
+  const [title, setTitle] = useState(existingAssignment?.title || "");
   const [points, setPoints] = useState(existingAssignment?.points || "100");
   const [availMonth, setAvailMonth] = useState(existingAssignment?.availMonth || "");
   const [availDate, setAvailDate] = useState(existingAssignment?.availDate || "");
@@ -106,6 +106,7 @@ export default function AssignmentEditor() {
         value={title}
         id="wd-assign"
         className="me-2 mt-2"
+        placeholder="Name"
         onChange={(e) => setTitle(e.target.value)}
         />
         </FormGroup>
