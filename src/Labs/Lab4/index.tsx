@@ -22,9 +22,17 @@ export default function Lab4() {
     }
 
     return (
+
     <Provider store={store}>
     <div className="wd-lab-padding">
     <h2>Lab4</h2>
+
+    <h4>Github Repository Link</h4>
+Please
+<a href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a4" 
+id="wd-github"> click here </a>
+to be directed to Repository - clarify it is on Branch "a4"<hr/>
+
     <ClickEvent/>
     <PassingDataOnEvent/>
     <PassingFunctions theFunction={sayHello}/>
