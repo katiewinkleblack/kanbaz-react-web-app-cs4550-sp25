@@ -4,8 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { enrollCourse, unenrollCourse } from "./Account/accountReducer";
 import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
+import axios from "axios";
+import { REMOTE_SERVER } from "./Account/client";
 
 export default function Dashboard() {
+const COURSES_API = `${REMOTE_SERVER}/api/courses`;
+console.log("COURSES_API:", COURSES_API);
 
 const dispatch = useDispatch();
 const navigate = useNavigate();
@@ -29,16 +33,11 @@ const handleEnroll = (courseId: string) => dispatch(enrollCourse(courseId));
 
 const handleUnenroll = (courseId: string) => dispatch(unenrollCourse(courseId));
 
-const displayedCourses =  showAllCourse ? courses 
-: courses.filter((course: any) =>
-    enrollments.some((e: { course: string; user: any }) =>
-      e.course === course._id && e.user === currentUserId
-    )
-  );
 
-  const handleAddCourse = () => {
-    const newCourse = {
-      _id: `C${Date.now()}`,
+
+  const handleAddCourse = async () => {
+    try {
+    const newCourseData = {
       name: courseName,
       description: courseDesc,
       number: "",
@@ -48,12 +47,17 @@ const displayedCourses =  showAllCourse ? courses
       credits: 0,
       image: "/images/teslabot.jpg"
     };
+    const {data: newCourse } = await axios.post(COURSES_API, newCourseData);
+
     dispatch(addCourse(newCourse));
     dispatch(enrollCourse(newCourse._id));
     setCourseName("");
     setCourseDesc("");
     setEditingCourse(null);
-    };
+  } catch (error) {
+    console.error("Error adding course:", error);
+  }
+  };
 
     const handleEditCourse = (course: any) => {
       setEditingCourse(course);
@@ -118,7 +122,7 @@ const handleUpdateCourse = () => {
 
           
 
-          {displayedCourses.map((course: any) => (
+          {courses.map((course: any) => (
 
             <Col key={course._id}
             className="wd-dashboard-course" style={{ width: "300px" }}>

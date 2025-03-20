@@ -8,8 +8,6 @@ import { FaAlignJustify } from "react-icons/fa";
 import People from "./People";
 import { useSelector } from "react-redux";
 
-import * as UserClient from "../Account/client";
-
 export default function Courses()
  {
     const { cid } = useParams();
