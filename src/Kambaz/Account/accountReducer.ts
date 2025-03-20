@@ -15,7 +15,7 @@ const accountSlice = createSlice({
     },
     enrollCourse: (state: {
         enrollments: any; currentUser: any; 
-}, action: PayloadAction<string>) => {
+}, action: PayloadAction<string>) => { 
         if (!state.currentUser) return;
 
         const newEnrollment = { user: state.currentUser._id, course: action.payload};

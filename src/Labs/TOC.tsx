@@ -35,6 +35,11 @@ export default function TOC() {
        <Nav.Link as={Link} to="/Kambaz" id="wd-kambaz-labs">Kambaz</Nav.Link>
      </Nav.Item>
      <Nav.Item>
+       <Nav.Link as={Link} to="/Labs/Lab5" id="wd-l5"
+          className={location.pathname ===
+            "/Labs/Lab5" ? 'wd-highlight-labs' : ''}> Lab 5 </Nav.Link>
+     </Nav.Item>
+     <Nav.Item>
        <Nav.Link href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a2/src" target="_blank">My GitHub</Nav.Link>
      </Nav.Item>
    </Nav>
