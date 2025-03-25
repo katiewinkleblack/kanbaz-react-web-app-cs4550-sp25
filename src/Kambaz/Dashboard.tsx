@@ -7,6 +7,7 @@ import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
 import axios from "axios";
 import { REMOTE_SERVER } from "./Account/client";
 import * as UserClient from "./Account/client";
+import * as CoursesClient from "./Courses/client";
 
 
 export default function Dashboard() {
@@ -27,26 +28,49 @@ const [editingCourse, setEditingCourse] = useState<any | null>(null);
 
 
 const isStudent = currentUser?.role === "STUDENT";
-const [showAllCourse, setShowAllCourse] = useState<any | null>(null);
+const [showAllCourse, setShowAllCourse] = useState(false);
 
 const changeCourseView = () => setShowAllCourse(!showAllCourse);
 
-const handleEnroll = (courseId: string) => dispatch(enrollCourse(courseId));
+const handleEnroll = async (courseId: string) => {
+  try {
+    await UserClient.enrollUserInCourse(currentUser._id, courseId);
+     dispatch(enrollCourse(courseId));
+  } catch (error) {
+    console.log(`Error enrolling user: ${currentUser._id} in course: ${courseId} `);
+  }
+};
 
-const handleUnenroll = (courseId: string) => dispatch(unenrollCourse(courseId));
+const handleUnenroll = async (courseId: string) => {
+  try {
+    await UserClient.unEnrollInCourse(currentUser._id, courseId);
+      dispatch(unenrollCourse(courseId));
+      setCourses(prevCourses => prevCourses.filter(course => course._id !== courseId));
+      navigate(`/Kambaz/Dashboard`);
+      
+  } catch (error) {
+    console.log(`Error unenrolling user: ${currentUser._id} in course: ${courseId} `);
+  }
+};
 
 
 const fetchCourses = async () => {
   try {
-    const courses = await UserClient.findMyCourses();
-    setCourses(courses);
+    if (showAllCourse) {
+      const courses = await CoursesClient.fetchAllCourses();
+      setCourses(courses);
+    } else {
+    const usercourses = await UserClient.findMyCourses();
+    setCourses(usercourses);
+    }
   } catch (error) {
     console.error(error);
   }
 };
 useEffect(() => {
   fetchCourses();
-}, [currentUser]);
+}, [currentUser, showAllCourse, enrollments]);
+
 
 
   const handleAddCourse = async () => {

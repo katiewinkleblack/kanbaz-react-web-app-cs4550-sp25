@@ -3,6 +3,7 @@ import axios from "axios";
 const axiosWithCredentials = axios.create({ withCredentials: true});
 export const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
 export const USERS_API = `${REMOTE_SERVER}/api/users`;
+export const ENROLLMENTS_API = `${REMOTE_SERVER}/api/enrollments`;
 
 export const findMyCourses = async () => {
   const { data } = await axiosWithCredentials.get(`${USERS_API}/current/courses`);
@@ -44,4 +45,22 @@ export const createCourse = async (course: any) => {
   return data;
 };
 
+export const enrollUserInCourse = async (userId: string, courseId: string) => {
+  try {
+    const response = await axiosWithCredentials.post(`${ENROLLMENTS_API}/${userId}/courses/${courseId}/enroll`);
+    return response.data;
+  } catch (error) {
+    console.log("Error enrolling user in course", error);
+    throw error;
+  }
+};
 
+export const unEnrollInCourse = async (userId: string, courseId: string) => {
+  try {
+    const response = await axiosWithCredentials.delete(`${ENROLLMENTS_API}/${userId}/courses/${courseId}/unEnroll`);
+    return response.data;
+  } catch (error) {
+    console.log("Error unenrolling user in course", error);
+    throw error;
+  }
+};

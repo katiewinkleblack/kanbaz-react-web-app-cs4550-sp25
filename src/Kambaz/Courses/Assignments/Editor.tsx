@@ -4,6 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignment, editAssignment } from "./assigmentReducer";
 import { useEffect, useState } from "react";
+import * as coursesClient from "../client";
+import { updateAssignment } from "./client";
+
 
 export default function AssignmentEditor() {
   const { aid, cid } = useParams();
@@ -11,11 +14,11 @@ export default function AssignmentEditor() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const assignmentId = aid ?? "";
+ 
 
   
 
-  console.log("🌐 Current URL Assignment ID (aid):", assignmentId);
-  console.log("📜 Redux Assignments:", assignments);
+
 
   const existingAssignment = assignments.find((a: any) => a._id === assignmentId) ?? null;
 
@@ -58,8 +61,7 @@ export default function AssignmentEditor() {
 
 
 
-
-  const handleSave = () => {
+  const handleSave = async () => {
     const updatedAssignment = {
       _id: assignmentId,
       title,
@@ -76,10 +78,15 @@ export default function AssignmentEditor() {
     };
 
     if (existingAssignment) {
-      dispatch(editAssignment({_id: assignmentId, updateAssignment: updatedAssignment}));
+     const updated = await updateAssignment(assignmentId, updatedAssignment);
+     dispatch(editAssignment(updated));
+
     } else {
-      dispatch(addAssignment(updatedAssignment));
-    }
+     const assignment = await coursesClient.createAssignmentForCourse(cid, updatedAssignment);
+      dispatch(addAssignment(assignment));
+    };
+
+    
     navigate(`/Kambaz/Courses/${cid}/Assignments`);
   };
  
