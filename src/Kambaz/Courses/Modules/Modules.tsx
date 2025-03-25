@@ -4,9 +4,13 @@ import { BsGripVertical } from "react-icons/bs";
 import LessonControlButtons from "./LessonControlButtons";
 import ModuleControlButtons from "./ModuleControlButtons";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addModule, deleteModule, editModule, updateModule } from "./modulesReducer";
+import { addModule, deleteModule, editModule, setModules, updateModule } from "./modulesReducer";
+import * as coursesClient from "../client";
+import * as modulesClient from "./client";
+
+
 
 export default function Modules() {
   const { cid } = useParams();
@@ -14,22 +18,44 @@ export default function Modules() {
   const { modules } = useSelector((state: any) => state.modulesReducer);
   const dispatch = useDispatch();
  
+  const removeModule = async (moduleId: string) => {
+    await modulesClient.deleteModule(moduleId);
+    dispatch(deleteModule(moduleId));
+  };
+
+  const saveModule = async (module: any) => {
+    await modulesClient.updateModule(module);
+    dispatch(updateModule(module));
+  };
+
+
+
+  const fetchModules = async () => {
+    const modules = await coursesClient.findModulesForCourse(cid as string);
+    dispatch(setModules(modules));
+  };
+  useEffect(() => {
+    fetchModules();
+  }, []);
+
+  const createModuleForCourse = async () => {
+    if (!cid) return;
+    const newModule = { name: moduleName, course: cid };
+    const module = await coursesClient.createModuleForCourse(cid, newModule);
+    dispatch(addModule(module));
+  };
 
 
 
     return (
       <div id="wd-padding-right-left-modules">
         <ModulesControls moduleName={moduleName} setModuleName={setModuleName} 
-        addModule={() => {
-          dispatch(addModule({ name: moduleName, course: cid}));
-          setModuleName("");
-        }}
+        addModule={createModuleForCourse}
          /> 
         <br/> <br/> 
   
         <ListGroup className="rounded-0" id="wd-modules">
-          {modules.filter((module: any) => module.course === cid)
-          .map((module: any) => (
+          {modules.map((module: any) => (
 
           <ListGroup.Item className="wd-module p-0 mmb-5 fs-5">
             <div id="wd-background-for-titles" className="p-3 ps-2">
@@ -41,7 +67,7 @@ export default function Modules() {
               onChange={(e) => dispatch(updateModule({ ...module, name: e.target.value}))}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  dispatch(updateModule({...module, editing: false}));
+                  saveModule({...module, editing: false});
                 }
               }}
               value={module.name} />
@@ -49,9 +75,9 @@ export default function Modules() {
 
             <ModuleControlButtons  
             moduleId={module._id}
-            deleteModule={(moduleId) => {
-              dispatch(deleteModule(moduleId))}
-            }
+            deleteModule={(moduleId) => 
+              removeModule(moduleId)}
+            
             editModule={(moduleId) => {
               dispatch(editModule(moduleId))}
             }

@@ -1,11 +1,13 @@
 import { Button, Card, Col, FormControl, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { enrollCourse, unenrollCourse } from "./Account/accountReducer";
 import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
 import axios from "axios";
 import { REMOTE_SERVER } from "./Account/client";
+import * as UserClient from "./Account/client";
+
 
 export default function Dashboard() {
 const COURSES_API = `${REMOTE_SERVER}/api/courses`;
@@ -13,12 +15,12 @@ console.log("COURSES_API:", COURSES_API);
 
 const dispatch = useDispatch();
 const navigate = useNavigate();
-const courses = useSelector((state: any) => state.courseReducer?.courses || [])
 
 
 const { currentUser } = useSelector((state: any) => state.accountReducer);
-const currentUserId = currentUser?._id ?? "";
+
 const { enrollments } = useSelector((state: any) => state.accountReducer);
+const [courses, setCourses] = useState<any[]>([]); 
 const [courseName, setCourseName] = useState("");
 const [courseDesc, setCourseDesc] = useState("");
 const [editingCourse, setEditingCourse] = useState<any | null>(null);
@@ -34,6 +36,18 @@ const handleEnroll = (courseId: string) => dispatch(enrollCourse(courseId));
 const handleUnenroll = (courseId: string) => dispatch(unenrollCourse(courseId));
 
 
+const fetchCourses = async () => {
+  try {
+    const courses = await UserClient.findMyCourses();
+    setCourses(courses);
+  } catch (error) {
+    console.error(error);
+  }
+};
+useEffect(() => {
+  fetchCourses();
+}, [currentUser]);
+
 
   const handleAddCourse = async () => {
     try {
@@ -48,6 +62,8 @@ const handleUnenroll = (courseId: string) => dispatch(unenrollCourse(courseId));
       image: "/images/teslabot.jpg"
     };
     const {data: newCourse } = await axios.post(COURSES_API, newCourseData);
+
+  
 
     dispatch(addCourse(newCourse));
     dispatch(enrollCourse(newCourse._id));

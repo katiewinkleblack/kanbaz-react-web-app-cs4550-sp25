@@ -1,34 +1,40 @@
 import { Button, ListGroup, Modal, ModalBody, ModalFooter, ModalTitle } from "react-bootstrap";
 import { BsGripVertical, BsTrash } from "react-icons/bs";
-import LessonControlButtons from "../LessonControlButtons";
+import LessonControlButtons from "../Modules/LessonControlButtons";
 import AssignmentControlButtons from "../AssignmentControlButtons";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { MdAssignment } from "react-icons/md";
 import AssignmentHeader from "./AssignmentHeader";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAssignment } from "./assigmentReducer";
-import { useState } from "react";
- 
+import { addAssignment, deleteAssignment, setAssignments } from "./assigmentReducer";
+import { useEffect, useState } from "react";
+import * as assignmentClient from "./client";
+import * as coursesClient from "../client";
+
 
 export default function Assignments() {
   const { cid } = useParams();
 
+  const [assignmentName, setAssignmentName] = useState("");
   const assignments = useSelector((state: any) => state.assignmentReducer?.assignments ?? [] );
 
  
  
   const dispatch = useDispatch();
 
-  const courseAssignments = assignments?.filter((a: any) => a.course === cid);
 
   const [modal, setModal] = useState(false);
   const [selectedAssignment, setSelectedAssignment] = useState<any>(null);
 
-  const handleDelete = ((a: any) => {
-    setSelectedAssignment(a);
-    setModal(true)
-  });
+
+ const removeAssignment = async (aid: string) => {
+    await assignmentClient.deleteAssignment(aid);
+    dispatch(deleteAssignment(aid));
+  };
+
+
+
 
   const deleteConfirmation = () => {
     if (selectedAssignment) {
@@ -37,6 +43,22 @@ export default function Assignments() {
     setModal(false);
     selectedAssignment(null);
   }
+
+  const createAssignmentForCourse = async () => {
+      if (!cid) return;
+      const newAssignment = { name: assignmentName, course: cid };
+      const assignment = await coursesClient.createModuleForCourse(cid, newAssignment);
+      dispatch(addAssignment(assignment));
+    };
+
+    
+   const fetchAssignments = async () => {
+      const findAssign = await coursesClient.findAssignmentForCourse(cid as string)
+      dispatch(setAssignments(findAssign));
+    };
+    useEffect(() => {
+      fetchAssignments();
+    }, []);
 
 
     return (
@@ -49,7 +71,7 @@ export default function Assignments() {
         <ListGroup className="rounded-0" id="wd-assignments">
 
           
-        {courseAssignments.map((assignment: any) => (
+        {assignments.map((assignment: any) => (
 
         <ListGroup.Item key={assignment._id}
         className="wd-module p-0 mmb-4 fs-5 border-grey"
@@ -91,7 +113,7 @@ export default function Assignments() {
                     </ListGroup>
 
 <div className="p-3">
-  <Button variant="danger" onClick={() => handleDelete(assignment)}>
+  <Button variant="danger" onClick={() => removeAssignment(assignment._id)}>
     <BsTrash/>
   </Button>
 </div>

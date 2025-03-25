@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import CourseNavigation from "./Navigation";
-import Modules from "./Modules";
+import Modules from "./Modules/Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
@@ -13,13 +13,16 @@ export default function Courses()
     const { cid } = useParams();
 
 
-    const courses = useSelector((state: any) => state.accountReducer);
 
   
     const { pathname } = useLocation();
     const currentUser = useSelector((state: any) => state.accountReducer.currentUser);
     const currentUserId = currentUser?._id ?? "";
     const enrollments = useSelector((state: any) => state.accountReducer.enrollments);
+    const courses = enrollments.map((e: any) => e.course)
+    console.log("Courses in component:", courses, Array.isArray(courses));
+
+  
 
     const course = courses.find((c: any) => c._id === cid);
 
