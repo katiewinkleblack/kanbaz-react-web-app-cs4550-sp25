@@ -52,6 +52,7 @@ export const profile = async () => {
 
 export const signout = async () => {
     const response = await axiosWithCredentials.post(`${USERS_API}/signout`);
+    console.log("signed out");
     return response.data;
 };
 
