@@ -7,7 +7,7 @@ import { MdAssignment } from "react-icons/md";
 import AssignmentHeader from "./AssignmentHeader";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addAssignment, deleteAssignment, setAssignments } from "./assigmentReducer";
+import { deleteAssignment, setAssignments } from "./assigmentReducer";
 import { useEffect, useState } from "react";
 import * as assignmentClient from "./client";
 import * as coursesClient from "../client";
@@ -16,7 +16,7 @@ import * as coursesClient from "../client";
 export default function Assignments() {
   const { cid } = useParams();
 
-  const [assignmentName, setAssignmentName] = useState("");
+ 
   const assignments = useSelector((state: any) => state.assignmentReducer?.assignments ?? [] );
 
  
@@ -25,7 +25,7 @@ export default function Assignments() {
 
 
   const [modal, setModal] = useState(false);
-  const [selectedAssignment, setSelectedAssignment] = useState<any>(null);
+  const [selectedAssignment] = useState<any>(null);
 
 
  const removeAssignment = async (aid: string) => {
