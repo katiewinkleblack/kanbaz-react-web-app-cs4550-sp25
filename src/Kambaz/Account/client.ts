@@ -14,15 +14,23 @@ export const findMyCourses = async () => {
 
 
 export const signin = async (credentials: any) => {
-
-  const response = await axiosWithCredentials.post( `${USERS_API}/signin`, credentials );
-  return response.data;
+ try {
+  await axiosWithCredentials.post( `${USERS_API}/signin`, credentials );
+  return await profile();
+ } catch  (error) {
+  console.error("Error signing in:", error);
+ }
+  
 };
 
 export const signup = async (credentials: any) => {
-    
-    const response = await axiosWithCredentials.post( `${USERS_API}/signup`, credentials );
-    return response.data;
+    try {
+    await axiosWithCredentials.post( `${USERS_API}/signup`, credentials );
+    return await signin(credentials);
+    } catch (error) {
+      console.error("Error signing up:", error);
+
+    }
   };
 
 export const updateUser = async (user: any) => {
@@ -32,9 +40,12 @@ export const updateUser = async (user: any) => {
 };
 
 export const profile = async () => {
-
+   try { 
     const response = await axiosWithCredentials.post(`${USERS_API}/profile`);
     return response.data;
+   } catch (error) {
+    console.error("Error fetching profile:", error);
+   }
 };
 
 export const signout = async () => {
