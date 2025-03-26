@@ -42,12 +42,9 @@ export const updateUser = async (user: any) => {
 };
 
 export const profile = async () => {
-   try { 
     const response = await axiosWithCredentials.post(`${USERS_API}/profile`);
     return response.data;
-   } catch (error) {
-    console.error("Error fetching profile:", error);
-   }
+   
 };
 
 export const signout = async () => {
