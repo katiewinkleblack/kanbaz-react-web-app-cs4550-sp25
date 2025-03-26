@@ -7,7 +7,7 @@ import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
 import axios from "axios";
 import { REMOTE_SERVER } from "./Account/client";
 import * as UserClient from "./Account/client";
-
+import * as CoursesClient from "./Courses/client";
 
 
 export default function Dashboard() {
@@ -28,9 +28,9 @@ const [editingCourse, setEditingCourse] = useState<any | null>(null);
 
 
 const isStudent = currentUser?.role === "STUDENT";
-//const [showAllCourse, setShowAllCourse] = useState(false);
+const [showAllCourse, setShowAllCourse] = useState(false);
 
-//const changeCourseView = () => setShowAllCourse(!showAllCourse);
+const changeCourseView = () => setShowAllCourse(!showAllCourse);
 
 const handleEnroll = async (courseId: string) => {
   try {
@@ -56,17 +56,21 @@ const handleUnenroll = async (courseId: string) => {
 
 const fetchCourses = async () => {
   try {
+    if (showAllCourse) {
       console.log("courses");
       const usercourses = await UserClient.findMyCourses();
       setCourses(usercourses);
-    } 
-     catch (error) {
+    } else {
+    const courses = await CoursesClient.fetchAllCourses();
+    setCourses(courses);
+    }
+  } catch (error) {
     console.error(error);
   }
 };
 useEffect(() => {
   fetchCourses();
-}, [currentUser, enrollments]);
+}, [currentUser, showAllCourse, enrollments]);
 
 
 
@@ -117,7 +121,13 @@ const handleUpdateCourse = () => {
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
 
-     
+      {isStudent && (
+        <Button variant="primary" onClick={changeCourseView}
+        id="wd-show-course-button"
+         className="mb-3">
+          {showAllCourse ? "Show Enrolled Courses" : "Show All Courses"}
+        </Button>
+      )}
 
     <h2 id="wd-dashboard-published">
         {isStudent ? "Courses" : `Published Courses (${courses.length})`}
