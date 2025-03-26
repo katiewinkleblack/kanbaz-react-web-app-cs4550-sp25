@@ -6,7 +6,9 @@ export const USERS_API = `${REMOTE_SERVER}/api/users`;
 export const ENROLLMENTS_API = `${REMOTE_SERVER}/api/enrollments`;
 
 export const findMyCourses = async () => {
-  const { data } = await axiosWithCredentials.get(`${USERS_API}/current/courses`);
+  const { data } = await axiosWithCredentials.get(`${USERS_API}/current/courses`,{
+    withCredentials: true, }
+  );
   return data;
 };
 
