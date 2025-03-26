@@ -16,8 +16,9 @@ export const findMyCourses = async () => {
 export const signin = async (credentials: any) => {
  try {
   const response =await axiosWithCredentials.post( `${USERS_API}/signin`, credentials );
-   profile();
+  console.log(credentials);
   return response.data;
+
   
  } catch  (error) {
   console.error("Error signing in:", error);
