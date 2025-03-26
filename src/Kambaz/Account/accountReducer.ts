@@ -20,6 +20,7 @@ const accountSlice = createSlice({
 
         const newEnrollment = { user: state.currentUser._id, course: action.payload};
         state.enrollments.push(newEnrollment);
+        console.log("deploy");
     },
     unenrollCourse: (state: { currentUser: any; enrollments: { _id: string; user: string; course: string; }[]; }, action: PayloadAction<string>) => {
        
