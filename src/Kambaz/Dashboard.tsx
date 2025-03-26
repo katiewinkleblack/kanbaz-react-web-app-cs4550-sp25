@@ -56,12 +56,12 @@ const handleUnenroll = async (courseId: string) => {
 
 const fetchCourses = async () => {
   try {
-    if (showAllCourse) {
-      const courses = await CoursesClient.fetchAllCourses();
-      setCourses(courses);
+    if (!showAllCourse) {
+      const usercourses = await UserClient.findMyCourses();
+      setCourses(usercourses);
     } else {
-    const usercourses = await UserClient.findMyCourses();
-    setCourses(usercourses);
+    const courses = await CoursesClient.fetchAllCourses();
+    setCourses(courses);
     }
   } catch (error) {
     console.error(error);
