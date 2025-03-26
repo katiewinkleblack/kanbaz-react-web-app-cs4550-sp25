@@ -15,18 +15,19 @@ export const findMyCourses = async () => {
 
 export const signin = async (credentials: any) => {
  try {
-  await axiosWithCredentials.post( `${USERS_API}/signin`, credentials );
-  return await profile();
+  const response =await axiosWithCredentials.post( `${USERS_API}/signin`, credentials );
+   profile();
+  return response.data;
+  
  } catch  (error) {
   console.error("Error signing in:", error);
- }
-  
+ } 
 };
 
 export const signup = async (credentials: any) => {
     try {
-    await axiosWithCredentials.post( `${USERS_API}/signup`, credentials );
-    return await signin(credentials);
+    const response = await axiosWithCredentials.post( `${USERS_API}/signup`, credentials );
+    return response.data;
     } catch (error) {
       console.error("Error signing up:", error);
 
