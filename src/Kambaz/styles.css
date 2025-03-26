@@ -176,6 +176,14 @@ body * { font-family:
   color: white;
 }
 
+#wd-button-addPerson {
+  background-color: #dc3545;
+  font-size: 12px;
+  color: white;
+  height: 40px;
+  white-space: nowrap;
+}
+
 #wd-button-account:hover {
   background-color: darkred;
   color:#fff;

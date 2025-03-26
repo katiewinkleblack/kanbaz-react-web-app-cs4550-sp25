@@ -44,12 +44,6 @@ export default function Assignments() {
     selectedAssignment(null);
   }
 
-  const createAssignmentForCourse = async () => {
-      if (!cid) return;
-      const newAssignment = { name: assignmentName, course: cid };
-      const assignment = await coursesClient.createModuleForCourse(cid, newAssignment);
-      dispatch(addAssignment(assignment));
-    };
 
     
    const fetchAssignments = async () => {
