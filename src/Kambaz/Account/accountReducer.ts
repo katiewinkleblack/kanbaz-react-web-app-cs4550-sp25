@@ -26,7 +26,7 @@ const accountSlice = createSlice({
         state.enrollments = state.enrollments.filter((e) => !( e.course === 
         action.payload && e.user === state.currentUser?._id));
         localStorage.setItem("enrollments", JSON.stringify(state.enrollments));
-        console.log("log");
+        
     },
   }}
 );
