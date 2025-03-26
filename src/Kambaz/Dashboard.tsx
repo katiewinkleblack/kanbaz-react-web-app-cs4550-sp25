@@ -7,7 +7,7 @@ import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
 import axios from "axios";
 import { REMOTE_SERVER } from "./Account/client";
 import * as UserClient from "./Account/client";
-import * as CoursesClient from "./Courses/client";
+
 
 
 export default function Dashboard() {
