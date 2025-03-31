@@ -5,8 +5,8 @@ export const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
 export const USERS_API = `${REMOTE_SERVER}/api/users`;
 export const ENROLLMENTS_API = `${REMOTE_SERVER}/api/enrollments`;
 
-export const findMyCourses = async () => {
-  const { data } = await axiosWithCredentials.get(`${USERS_API}/current/courses`,{
+export const findMyCourses = async (userId: any) => {
+  const { data } = await axiosWithCredentials.get(`${USERS_API}/${userId}/courses`,{
     withCredentials: true, }
   );
   return data;

@@ -58,7 +58,7 @@ const fetchCourses = async () => {
   try {
     if (!showAllCourse) {
       
-      const usercourses = await UserClient.findMyCourses();
+      const usercourses = await UserClient.findMyCourses(currentUser._id);
       setCourses(usercourses);
     } else {
     const courses = await CoursesClient.fetchAllCourses();
