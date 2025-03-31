@@ -42,9 +42,7 @@ export const updateUser = async (user: any) => {
 };
 
 export const profile = async () => {
-    const response = await axiosWithCredentials.get(`${USERS_API}/current/profile`, {
-      withCredentials: true 
-    });
+    const response = await axiosWithCredentials.post(`${USERS_API}/profile`);
     console.log(response);
     return response.data;
    
