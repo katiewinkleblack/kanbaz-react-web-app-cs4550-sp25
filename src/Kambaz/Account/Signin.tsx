@@ -15,6 +15,10 @@ export default function Signin() {
     const user = await client.signin(credentials)
     if (!user) return;
     dispatch(setCurrentUser(user));
+
+    const userProfile = await client.profile();
+    dispatch(setCurrentUser(userProfile));
+    
     navigate("/Kambaz/Dashboard");
   };
 
