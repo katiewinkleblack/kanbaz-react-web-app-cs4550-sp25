@@ -44,3 +44,15 @@ export const createCourse = async (course: any) => {
     );
     return response.data;
   };
+
+  export const editCourse = async (courseId: string, updatedCourse: any) => {
+    const { data } = await axios.put(`${COURSES_API}/${courseId}`, updatedCourse,
+      { withCredentials: true});
+    return data;
+  };
+
+  export const deleteCourse = async (courseId: string) => {
+    const { data } = await axios.delete(`${COURSES_API}/${courseId}`, 
+      {withCredentials: true});
+      return data;
+  }

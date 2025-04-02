@@ -68,6 +68,24 @@ const fetchCourses = async () => {
     console.error(error);
   }
 };
+
+
+
+const handleDeleteCourse = async (courseId: string) => {
+  try {
+    await axios.delete(`${COURSES_API}/${courseId}`);
+    setCourses(prevCourses => prevCourses.filter(course => course._id !== courseId));
+
+    dispatch(deleteCourse(courseId));
+  } catch (error) {
+    console.error("Error deleteing Course:", error);
+  }
+}
+
+
+
+
+
 useEffect(() => {
   fetchCourses();
 }, [currentUser, showAllCourse, enrollments]);
@@ -106,13 +124,25 @@ useEffect(() => {
       setCourseDesc(course.description);
     };
 
-const handleUpdateCourse = () => {
+
+const handleUpdateCourse = async () => {
   if (!editingCourse) return;
-  dispatch(updateCourse({ ...editingCourse, name: courseName, description: courseDesc}));
+
+  try { 
+    const updatedCourse = { ...editingCourse, name: courseName, description: courseDesc};
+    await axios.put(`${COURSES_API}/${editingCourse._id}`, updatedCourse);
+
+    setCourses(prevCourses => prevCourses.map(course => course._id === editingCourse._id
+      ? updatedCourse : course )
+    );
+    dispatch(updateCourse(updatedCourse));
   setCourseName("");
   setCourseDesc("");
   setEditingCourse(null);
-}
+  }catch (error) {
+    console.log("Error updating course:", error);
+  }
+};
 
   
  
@@ -196,7 +226,7 @@ const handleUpdateCourse = () => {
   <Button variant="primary" id="wd-go-button" onClick={() => navigate(`/Kambaz/Courses/${course._id}/Home`)}
   > Go </Button>
             <Button variant="danger"
-               onClick={() => dispatch(deleteCourse(course._id))}
+               onClick={() => handleDeleteCourse(course._id)}
                 className="btn btn-danger float-end"
                 id="wd-delete-course-click">
                 Delete</Button>
