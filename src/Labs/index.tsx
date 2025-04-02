@@ -12,7 +12,7 @@ import Lab5 from "./Lab5";
 export default function Labs() {
     return (
         <Provider store={store}>
-        <div>
+        <div className="wd-lab-padding wd-lab-padding-right">
             <h1>Labs</h1>
             <TOC/>
             <Routes>
