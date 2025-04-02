@@ -40,7 +40,13 @@ export default function TOC() {
             "/Labs/Lab5" ? 'wd-highlight-labs' : ''}> Lab 5 </Nav.Link>
      </Nav.Item>
      <Nav.Item>
-       <Nav.Link href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a2/src" target="_blank">My GitHub</Nav.Link>
+       <Nav.Link href="https://github.com/katiewinkleblack/kanbaz-react-web-app-cs4550-sp25/tree/a5/src" target="_blank">My GitHub - React Application</Nav.Link>
+     </Nav.Item>
+     <Nav.Item>
+       <Nav.Link href="https://github.com/katiewinkleblack/kambaz-node-server-app-FINAL/tree/a5" target="_blank">My GitHub - Node Server</Nav.Link>
+     </Nav.Item>
+     <Nav.Item>
+       <Nav.Link href="https://kambaz-node-server-app-final.onrender.com" target="_blank">Render Server Link</Nav.Link>
      </Nav.Item>
    </Nav>
             <br/>
