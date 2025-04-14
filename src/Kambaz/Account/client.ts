@@ -33,6 +33,7 @@ export const signin = async (credentials: any) => {
 };
 
 export const signup = async (credentials: any) => {
+  
     try {
     const response = await axiosWithCredentials.post( `${USERS_API}/signup`, credentials );
     console.log("Server response:", response.data); 
