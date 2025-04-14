@@ -6,3 +6,7 @@
     border-right: none !important;
 }
 
+#wd-font-small {
+    font-size: 10px;
+    font-weight: bold;
+  }

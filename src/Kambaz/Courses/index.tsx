@@ -7,6 +7,11 @@ import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
 import People from "./People";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { REMOTE_SERVER } from "../Account/client";
+import Details from "./Details";
+
 
 export default function Courses()
  {
@@ -17,7 +22,7 @@ export default function Courses()
   
     const { pathname } = useLocation();
     const currentUser = useSelector((state: any) => state.accountReducer.currentUser);
-    const currentUserId = currentUser?._id ?? "";
+    const currentUserIds = currentUser?.username ?? "";
     const enrollments = useSelector((state: any) => state.accountReducer.enrollments);
     const courses = enrollments.map((e: any) => e.course)
     console.log("Courses in component:", courses, Array.isArray(courses));
@@ -27,7 +32,30 @@ export default function Courses()
     const course = courses.find((c: any) => c._id === cid);
 
     const isStudent = currentUser?.role === "Student";
-    const isEnrolled = enrollments.some((e: { course: string | undefined; user: any; }) => e.course === cid && e.user === currentUserId);
+    const isEnrolled = enrollments.some(
+        (e: { course: { _id: any; }; user: { username: any; }; }) =>
+          (typeof e.course === "string" ? e.course : e.course?._id) === cid &&
+          (typeof e.user === "string" ? e.user : e.user?.username) === currentUserIds
+      );
+
+const [users, setUsers] = useState<any[]>([]);
+
+useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${REMOTE_SERVER}/api/courses/${cid}/people`);
+        setUsers(response.data || []);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    if (cid) {
+      fetchUsers();
+    }
+  }, [cid]);
+
+
 
     if (isStudent && !isEnrolled) {
         return <Navigate to="/Kambaz/Dashboard" />
@@ -56,7 +84,8 @@ export default function Courses()
                 <Route path="Assignments/:aid" element={<AssignmentEditor />} />
                 <Route path="Quizzes" element={<h2>Quizzes</h2>} />
                 <Route path="Grades" element={<h2>Grades</h2>} />
-                <Route path="People" element={<People />} />
+                <Route path="People" element={<People users={users} />} />
+                
 
             </Routes>
 

@@ -1,35 +1,62 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import * as db from "../Database";
 
-const initialState = {
+
+interface Enrollment {
+  _id?: string;
+  user: string | { username: string };
+  course: string | { _id: string };
+}
+
+interface AccountState {
+  currentUser: { username: string; role?: string } | null;
+  enrollments: Enrollment[];
+}
+
+
+const initialState: AccountState = {
   currentUser: null,
-  enrollments: db.enrollments,
+  enrollments: [],
 };
+
+
 const accountSlice = createSlice({
   name: "account",
   initialState,
   reducers: {
-    setCurrentUser: (state: { currentUser: any; enrollments: any[]}, action: { payload: { _id: string } | null }) => {
+    setCurrentUser: (
+      state,
+      action: PayloadAction<{ username: string; role?: string } | null>
+    ) => {
       state.currentUser = action.payload;
     },
-    enrollCourse: (state: {
-        enrollments: any; currentUser: any; 
-}, action: PayloadAction<string>) => { 
-        if (!state.currentUser) return;
 
-        const newEnrollment = { user: state.currentUser._id, course: action.payload};
-        state.enrollments.push(newEnrollment);
-        console.log("deploy");
+    enrollCourse: (
+      state,
+      action: PayloadAction<Enrollment>
+    ) => {
+      state.enrollments.push(action.payload);
     },
-    unenrollCourse: (state: { currentUser: any; enrollments: { _id: string; user: string; course: string; }[]; }, action: PayloadAction<string>) => {
-       
-        state.enrollments = state.enrollments.filter((e) => !( e.course === 
-        action.payload && e.user === state.currentUser?._id));
-        localStorage.setItem("enrollments", JSON.stringify(state.enrollments));
-        
-    },
-  }}
+
+    unenrollCourse: (
+      state,
+      action: PayloadAction<string> // courseId
+    ) => {
+      if (!state.currentUser) return;
+
+      state.enrollments = state.enrollments.filter((e) => {
+        const courseId =
+          typeof e.course === "string" ? e.course : e.course?._id;
+        const userId =
+          typeof e.user === "string" ? e.user : e.user?.username;
+        return !(
+          courseId === action.payload &&
+          userId === state.currentUser?.username
+        );
+  });
+},
+  },
+}
 );
 export const { setCurrentUser, enrollCourse, unenrollCourse } = accountSlice.actions;
 export default accountSlice.reducer;

@@ -12,7 +12,6 @@ import * as CoursesClient from "./Courses/client";
 
 export default function Dashboard() {
 const COURSES_API = `${REMOTE_SERVER}/api/courses`;
-console.log("COURSES_API:", COURSES_API);
 
 const dispatch = useDispatch();
 const navigate = useNavigate();
@@ -34,31 +33,36 @@ const changeCourseView = () => setShowAllCourse(!showAllCourse);
 
 const handleEnroll = async (courseId: string) => {
   try {
-    await UserClient.enrollUserInCourse(currentUser._id, courseId);
-     dispatch(enrollCourse(courseId));
+    const enrollment = await UserClient.enrollUserInCourse(currentUser.username, courseId);
+     dispatch(enrollCourse(enrollment));
   } catch (error) {
-    console.log(`Error enrolling user: ${currentUser._id} in course: ${courseId} `);
+    console.log(`Error enrolling user: ${currentUser.username} in course: ${courseId} `);
   }
 };
 
 const handleUnenroll = async (courseId: string) => {
   try {
-    await UserClient.unEnrollInCourse(currentUser._id, courseId);
+    await UserClient.unEnrollInCourse(currentUser.username, courseId);
       dispatch(unenrollCourse(courseId));
       setCourses(prevCourses => prevCourses.filter(course => course._id !== courseId));
       navigate(`/Kambaz/Dashboard`);
       
   } catch (error) {
-    console.log(`Error unenrolling user: ${currentUser._id} in course: ${courseId} `);
+    console.log(`Error unenrolling user: ${currentUser.username} in course: ${courseId} `);
   }
 };
 
 
 const fetchCourses = async () => {
   try {
+    if(!currentUser?.username) {
+      console.warn("current user id not defined yet");
+      return;
+    }
+
     if (!showAllCourse) {
       
-      const usercourses = await UserClient.findMyCourses(currentUser._id);
+      const usercourses = await UserClient.findMyCourses(currentUser.username);
       setCourses(usercourses);
     } else {
     const courses = await CoursesClient.fetchAllCourses();
@@ -87,7 +91,9 @@ const handleDeleteCourse = async (courseId: string) => {
 
 
 useEffect(() => {
+  if (currentUser?.username !== undefined) {
   fetchCourses();
+  }
 }, [currentUser, showAllCourse, enrollments]);
 
 
@@ -109,7 +115,7 @@ useEffect(() => {
   
 
     dispatch(addCourse(newCourse));
-    dispatch(enrollCourse(newCourse._id));
+    dispatch(enrollCourse(newCourse));
     setCourseName("");
     setCourseDesc("");
     setEditingCourse(null);
@@ -194,6 +200,7 @@ const handleUpdateCourse = async () => {
           
 
           {courses.map((course: any) => (
+           course && course._id && (
 
             <Col key={course._id}
             className="wd-dashboard-course" style={{ width: "300px" }}>
@@ -208,7 +215,7 @@ const handleUpdateCourse = async () => {
                       {course.description} </Card.Text>
 
 {isStudent && (
-  enrollments.some((e: { course: string; user: any; }) => e.course === course._id && e.user === currentUser._id) ? (
+  enrollments.some((e: { course: string; user: any; }) => e.course === course._id && e.user === currentUser.username) ? (
   <Button variant="danger" onClick={() => handleUnenroll(course._id)}> UnEnroll </Button>
 ) : (
   <Button variant="success" onClick={() => handleEnroll(course._id)}> Enroll </Button>
@@ -242,6 +249,7 @@ const handleUpdateCourse = async () => {
 
               </Card>
             </Col>
+           )
           ))}
         </Row>
       </div>

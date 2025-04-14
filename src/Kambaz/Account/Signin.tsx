@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { setCurrentUser } from "./accountReducer";
 import * as client from "./client";
 
+
 export default function Signin() {
 
   const [credentials, setCredentials] = useState<any>({});
@@ -51,7 +52,3 @@ export default function Signin() {
       </Link>
     </div>
 );}
-
-
-
-

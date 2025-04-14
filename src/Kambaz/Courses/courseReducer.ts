@@ -1,11 +1,8 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
-import { v4 as uuidv4 } from "uuid";
-import  courses  from "../Database/courses.json";
-
 const initialState = {
-    courses: courses,
+    courses: [],
   };
   const coursesSlice = createSlice({
     name: "courses",
@@ -15,19 +12,10 @@ const initialState = {
         state.courses = action.payload;
     },
       addCourse: (state, { payload: course }) => {
-        const newCourse: any = {
-          _id: uuidv4(),
-          name: course.name,
-          number: course.number,
-          startDate: course.startDate,
-          endDate: course.endDate,
-          department: course.department,
-          credits: course.credits,
-          description: course.description,
-          image: course.image,
-        };
-        state.courses = [...state.courses, newCourse] as any;
+        
+        state.courses = [...state.courses, course] as any;
       },
+
       deleteCourse: (state, {payload: courseId }) => {
         state.courses = state.courses.filter((c: any) => c._id !== courseId); 
       },

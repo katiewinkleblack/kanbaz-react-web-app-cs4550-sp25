@@ -10,8 +10,7 @@ import Session from "./Account/Session";
 
 export default function Kambaz() {
    
-  
-  
+
 
     return (
         <Session>
@@ -32,4 +31,8 @@ export default function Kambaz() {
       </div>
 </Session>
   );}
+
+function dispatch(arg0: { payload: { _id: string; role?: string; } | null; type: "account/setCurrentUser"; }) {
+    throw new Error("Function not implemented.");
+}
   

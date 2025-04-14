@@ -1,4 +1,4 @@
-import { Navigate, Route } from "react-router";
+import { BrowserRouter, Navigate, Route } from "react-router";
 import Labs from "./Labs";
 import { HashRouter } from "react-router";
 import { Routes } from "react-router";
@@ -10,6 +10,7 @@ function App() {
   return (
 
     <Provider store={store}>
+ 
     <HashRouter>
      <div>
       <Routes>
@@ -20,6 +21,7 @@ function App() {
       </Routes>
      </div>
     </HashRouter>
+
     </Provider>
   );
 }

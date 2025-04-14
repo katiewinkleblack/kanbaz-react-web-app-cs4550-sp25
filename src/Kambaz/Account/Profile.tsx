@@ -1,36 +1,43 @@
 import { useEffect, useState } from "react";
 import { Button, FormControl } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./accountReducer";
 import * as client from "./client";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { User } from "./Admin/UserTable";
 
 export default function Profile() {
 
-  const [profile, setProfile] = useState<any>({});
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const [user, setUser] = useState<User>({
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    role: "",
+  })
 
 
   useEffect(() => { 
-    const fetchProfile = async () => {
-      try {
-        const userProfile = await client.profile();
-        setProfile(userProfile);
-        dispatch(setCurrentUser(userProfile));
-      } catch (error) {
-        console.error("Error Fetching Profile", error);
-      }
-    };
-fetchProfile()
-  }, [dispatch]);
+    if (!currentUser) {
+      console.log("🔐 Not logged in — redirecting to signin");
+      navigate("/Kambaz/Account/Signin");
+    } else {
+      setUser(currentUser); // populate form fields
+    }
+  }, [currentUser]);
+
+
 
 
 
   const updateProfile = async () => {
     try {
-    const updatedProfile = await client.updateUser(profile);
-    setProfile(updatedProfile);
+    const updatedProfile = await client.updateUser(user);
+    setUser(updatedProfile);
     dispatch(setCurrentUser(updatedProfile));
     } catch (error) {
       console.error("Error Updating Profile", error);
@@ -54,25 +61,27 @@ fetchProfile()
   return (
     <div className="wd-profile-screen">
       <h3>Profile</h3>
-      {profile && (
+      {user && (
         <div>
-          <FormControl value={profile.username} id="wd-username" className="mb-2"
-                       onChange={(e) => setProfile({ ...profile, username: e.target.value })}/>
-          <FormControl value={profile.password} id="wd-password" className="mb-2"
-                        onChange={(e) => setProfile({ ...profile, password: e.target.value })}/>
-          <FormControl value={profile.firstName} id="wd-firstname" className="mb-2"
-                        onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}/>
-          <FormControl value={profile.lastName} id="wd-lastname" className="mb-2"
-                        onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}/>
-          <FormControl value={profile.dob} id="wd-dob" className="mb-2"
-                        onChange={(e) => setProfile({ ...profile, dob: e.target.value })}/>
-          <FormControl value={profile.email} id="wd-email" className="mb-2"
-                        onChange={(e) => setProfile({ ...profile, email: e.target.value })}/>
-          <select onChange={(e) => setProfile({ ...profile, role: e.target.value })}
+          <FormControl value={user.username} id="wd-username" className="mb-2"
+                       onChange={(e) => setUser({ ...user, username: e.target.value })}/>
+          <FormControl value={user.password} id="wd-password" className="mb-2"
+                        onChange={(e) => setUser({ ...user, password: e.target.value })}/>
+          <FormControl value={user.firstName} id="wd-firstname" className="mb-2"
+                        onChange={(e) => setUser({ ...user, firstName: e.target.value })}/>
+          <FormControl value={user.lastName} id="wd-lastname" className="mb-2"
+                        onChange={(e) => setUser({ ...user, lastName: e.target.value })}/>
+          <select onChange={(e) => setUser({ ...user, role: e.target.value })}
                  className="form-control mb-2" id="wd-role">
             <option value="USER">User</option>            <option value="ADMIN">Admin</option>
             <option value="FACULTY">Faculty</option>      <option value="STUDENT">Student</option>
           </select>
+          <Button onClick={updateProfile} className="w-100 mb-2" id="wd-signout-btn">
+            Update Profile
+          </Button>
+      
+      { user.role === "ADMIN" &&
+          <Link to="/Kambaz/Account/Admin">Admin</Link>}
           <Button onClick={signout} className="w-100 mb-2" id="wd-signout-btn">
             Sign out
           </Button>

@@ -4,41 +4,41 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BsTrash } from "react-icons/bs";
+import Details from "./Details";
+import * as client from "../Account/client";
+
 const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
 
 
-export default function People() {
+export default function People({ users = [] }: { users?: any[] }) {
   const { cid } = useParams<{ cid: any }>();
-  const [people, setPeople] = useState<any[]>([]);
   const [ userIds, setUserId] = useState("");
+  const [ initial, setUsers ] = useState(users);
+  const [ selectedUser, setSelectedUser ] = useState<any>(null);
 
 
+ const handleNameClick = async (username: string) => {
+  console.log("🖱️ Name clicked:", username); 
+    try {
+      const user = await client.findUserById(username);
+      console.log("📦 Found user:", user);
+      setSelectedUser(user);
+    } catch (err) {
+      console.error("Error finding user:", err);
+    }
+  };
 
   console.log("Adding user:", userIds, "to course:", cid);
 
 
-useEffect(() => {
-  const fetchPeople = async () => {
-    try {
-    const response = await axios.get(`${REMOTE_SERVER}/api/courses/${cid}/people`);
-    setPeople(Array.isArray(response.data) ? response.data : [])
-  } catch (error) {
-    console.error("Error fetching people for course:", error);
-    setPeople([]);
-  }
-
-}; fetchPeople(); 
-}, [cid]);
-
 
 const handleAddPerson = async () => {
   try {
-    const response = await axios.post(`${REMOTE_SERVER}/api/courses/${cid}/people`, {
+    const response = await axios.post(`${REMOTE_SERVER}/api/courses/${users[0]?.courseId}/people`, {
        userId: userIds },
       { headers: { "Content-Type": "application/json"}}
    
     );
-    setPeople((prevPeople) => [...prevPeople, response.data.user]);
     setUserId("");
 
   } catch (error) {
@@ -55,17 +55,16 @@ const handleRemoveDeletePerson = async(userId2: string) => {
    
     );
 
-    if (response.data?.people) {
-      setPeople(response.data.people);
-    } else {
-    setPeople((prevPeople) => prevPeople.filter((person) => person._id !== userId2));
-    }
     setUserId("");
 
   } catch (error) {
     console.log(`Error Deleting user: ${userId2} in course: ${cid} `);
   }
  };
+
+ useEffect(() => {
+  setUsers(users);
+ }, [users]);
 
 
 
@@ -101,25 +100,30 @@ const handleRemoveDeletePerson = async(userId2: string) => {
       </tr>
     </thead>
     <tbody>
-      {people.length === 0 ? (
+      {users.length === 0 ? (
      <tr>
       <td colSpan={6} className="text-center">
         No Students Enrolled in this Course
         </td>
         </tr>
       ) : (
-        people.map((user: any) => (
+        initial.map((user: any) => (
           <tr key={user._id}>
             <td className="wd-full-name text-nowrap">
           
           <FaUserCircle className="me-2 fs-1 text-secondary" />
-          <span className="wd-first-name">{user.firstName}</span>{" "}
-          <span className="wd-last-name">{user.lastName}</span>
+          <span
+  onClick={() => handleNameClick(user.username)}
+  className="text-decoration-none text-primary"
+  style={{ cursor: "pointer" }}
+>
+  {user.firstName} {user.lastName}
+</span>
           </td>
       <td className="wd-login-id">{user.username}</td>
       <td className="wd-section">{user.section}</td>
       <td className="wd-role">{user.role}</td>
-      <td className="wd-last-activity">{user.lastActivity}1</td>
+      <td className="wd-last-activity">{user.lastActivity}</td>
       <td className="wd-total-activity">{user.totalActivity}</td>
 
       <div className="p-3">
@@ -132,4 +136,22 @@ const handleRemoveDeletePerson = async(userId2: string) => {
       )}
     </tbody>
    </Table>
-  </div> );}
+   
+   {selectedUser && (
+  <Details user={selectedUser} onClose={() => setSelectedUser(null)}
+    onDelete={(username: string) => {
+      setUsers(initial.filter((u) => u.username !== username));
+      setSelectedUser(null);
+    }}
+    onUpdate={(updatedUser: any) => {
+      setUsers(initial.map((u) =>
+         u.username === updatedUser.username ? updatedUser : u)
+      );
+      setSelectedUser(updatedUser);
+    }}
+   
+   />
+  )}
+  </div> 
+  
+  );}
