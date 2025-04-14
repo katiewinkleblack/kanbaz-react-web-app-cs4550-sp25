@@ -34,11 +34,13 @@ export default function People({ users = [] }: { users?: any[] }) {
 
 const handleAddPerson = async () => {
   try {
-    const response = await axios.post(`${REMOTE_SERVER}/api/courses/${users[0]?.courseId}/people`, {
+    await axios.post(`${REMOTE_SERVER}/api/courses/${users[0]?.courseId}/people`, {
        userId: userIds },
       { headers: { "Content-Type": "application/json"}}
    
     );
+    const newUser = await client.findUserById(userIds);
+    setUsers([...initial, newUser])
     setUserId("");
 
   } catch (error) {
@@ -49,7 +51,7 @@ const handleAddPerson = async () => {
 
 const handleRemoveDeletePerson = async(userId2: string) => {
   try {
-    const response = await axios.delete(`${REMOTE_SERVER}/api/courses/${cid}/people`, {
+    await axios.delete(`${REMOTE_SERVER}/api/courses/${cid}/people`, {
        data: { userId: userId2 },
        headers: {"Content-Type": "application/json"}}
    

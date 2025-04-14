@@ -70,7 +70,7 @@ export default function Users() {
         <option value="TA">Assistants</option> <option value="FACULTY">Faculty</option>
         <option value="ADMIN">Administrators</option>
       </select>
-      <FormControl onChange={(e) => filterUsersByName(e.target.value)} placeholder="Search people"
+      <FormControl value={name} onChange={(e) => filterUsersByName(e.target.value)} placeholder="Search people"
              className="float-start w-25 me-2 wd-filter-by-name" />
      <People users={users} />
    </div>

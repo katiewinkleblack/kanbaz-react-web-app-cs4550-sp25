@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { REMOTE_SERVER } from "../Account/client";
-import Details from "./Details";
 
 
 export default function Courses()

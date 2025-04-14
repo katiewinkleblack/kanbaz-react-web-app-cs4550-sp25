@@ -12,7 +12,7 @@ export type User = {
 export default function UserTable() {
     const [users, setUsers] = useState<any[]>([]);
     const { uid } = useParams();
-    
+
 
 
 
@@ -51,10 +51,7 @@ export default function UserTable() {
         })
     };
 
-    const updateUser = async () => {
-        const updated = await userClient.updateUser(user);
-        setUsers([...users, updated])
-    }
+  
    
     const fetchUsers = async () => {
       const users = await userClient.findAllUsers();

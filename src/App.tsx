@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route } from "react-router";
+import { Navigate, Route } from "react-router";
 import Labs from "./Labs";
 import { HashRouter } from "react-router";
 import { Routes } from "react-router";
