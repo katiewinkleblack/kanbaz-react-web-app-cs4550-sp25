@@ -43,7 +43,7 @@ const handleEnroll = async (courseId: string) => {
      dispatch(enrollCourse(enrollment));
 
      if (!showAllCourse) {
-      const enrolledCourse = await CoursesClient.fetchAllCourses();
+      const enrolledCourse = await CoursesClient.fetchCourseById(courseId);
       setCourses([...courses, enrolledCourse]);
      }
      const enrolled = await UserClient.findMyCourses(currentUser.username);

@@ -56,9 +56,15 @@ export const createCourse = async (course: any) => {
     const { data } = await axios.delete(`${COURSES_API}/${courseId}`, 
       {withCredentials: true});
       return data;
-  }
+  };
 
   export const findCoursesForUser = async (username: string) => {
     const { data } = await axiosWithCredentials.get(`${USERS_API}/${username}/courses`);
     return data;
   };
+
+  export const fetchCourseById = async (courseId: string) => {
+    const { data } = await axiosWithCredentials.get(`${COURSES_API}/${courseId}`);
+    return data;
+  };
+  
