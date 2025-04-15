@@ -41,6 +41,17 @@ const handleEnroll = async (courseId: string) => {
   try {
     const enrollment = await UserClient.enrollUserInCourse(currentUser.username, courseId);
      dispatch(enrollCourse(enrollment));
+
+     if (!showAllCourse) {
+      const enrolledCourse = await CoursesClient.fetchAllCourses();
+      setCourses([...courses, enrolledCourse]);
+     }
+     const enrolled = await UserClient.findMyCourses(currentUser.username);
+     const updateEnrollments = enrolled.map((c: any) => ({
+      course: c._id,
+      user: currentUser.username,
+     }));
+     dispatch(setEnrollments(updateEnrollments));
   } catch (error) {
     console.log(`Error enrolling user: ${currentUser.username} in course: ${courseId} `);
   }
