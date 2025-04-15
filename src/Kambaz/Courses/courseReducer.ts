@@ -30,7 +30,7 @@ const initialState = {
     },
 });
 
-export const { addCourse, deleteCourse, editCourse, updateCourse } =
+export const { setCourses, addCourse, deleteCourse, editCourse, updateCourse } =
 coursesSlice.actions;
 
 export default coursesSlice.reducer;

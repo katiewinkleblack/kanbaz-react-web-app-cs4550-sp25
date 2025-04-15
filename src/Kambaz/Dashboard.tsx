@@ -2,7 +2,7 @@ import { Button, Card, Col, FormControl, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { enrollCourse, unenrollCourse } from "./Account/accountReducer";
+import { setEnrollments, enrollCourse, unenrollCourse } from "./Account/accountReducer";
 import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
 import axios from "axios";
 import { REMOTE_SERVER } from "./Account/client";
@@ -16,6 +16,12 @@ const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 const dispatch = useDispatch();
 const navigate = useNavigate();
 
+const isEnrolled = (courseId: string) => {
+  return enrollments.some(
+    (e: { course: string; user: string }) =>
+      e.course === courseId && e.user === currentUser.username
+  );
+};
 
 const { currentUser } = useSelector((state: any) => state.accountReducer);
 
@@ -60,14 +66,21 @@ const fetchCourses = async () => {
       return;
     }
 
-    if (!showAllCourse) {
+    const allEnrollments = await UserClient.findMyCourses(currentUser.username);
+    const updateEnrollments = allEnrollments.map((c: any) => ({
+      course: c._id,
+      user: currentUser.username,
+    }));
+    dispatch(setEnrollments(updateEnrollments));
+
+    if (showAllCourse) {
       
-      const usercourses = await UserClient.findMyCourses(currentUser.username);
-      setCourses(usercourses);
+      const allCourses = await CoursesClient.fetchAllCourses();
+      setCourses(allCourses);
     } else {
-    const courses = await CoursesClient.fetchAllCourses();
-    setCourses(courses);
+    setCourses(allEnrollments);
     }
+    
   } catch (error) {
     console.error(error);
   }
@@ -216,7 +229,7 @@ const handleUpdateCourse = async () => {
                       {course.description} </Card.Text>
 
 {isStudent && (
-  enrollments.some((e: { course: string; user: any; }) => e.course === course._id && e.user === currentUser.username) ? (
+  isEnrolled(course._id) ? (
   <Button variant="danger" onClick={() => handleUnenroll(course._id)}> UnEnroll </Button>
 ) : (
   <Button variant="success" onClick={() => handleEnroll(course._id)}> Enroll </Button>
