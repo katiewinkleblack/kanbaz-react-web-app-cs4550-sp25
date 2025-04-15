@@ -19,9 +19,9 @@ export default function Kambaz() {
     const updateEnrollment = async (courseId: string, enrolled: boolean) => {
       try {
         if (enrolled) {
-          await UserClient.enrollUserInCourse(currentUser._id, courseId);
+          await UserClient.enrollUserInCourse(currentUser.username, courseId);
         } else {
-          await UserClient.unEnrollInCourse(currentUser._id, courseId);
+          await UserClient.unEnrollInCourse(currentUser.username, courseId);
         }
   
         setCourses(prev =>
