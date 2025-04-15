@@ -37,7 +37,7 @@ const [editingCourse, setEditingCourse] = useState<any | null>(null);
 
 
 const isStudent = currentUser?.role === "STUDENT";
-const [showAllCourse, setShowAllCourse] = useState(false);
+const [showAllCourse, setShowAllCourse] = useState(true);
 
 
 const findCoursesForUser = async () => {
