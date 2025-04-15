@@ -15,7 +15,7 @@ export const findAllUsers = async () => {
 export const findMyCourses = async (username: any) => {
   const { data } = await axiosWithCredentials.get(`${USERS_API}/${username}/courses`,{
     withCredentials: true, }
-    
+
   );
   return data;
 };
@@ -128,6 +128,12 @@ export const findUserByName = async (firstName: string, lastName: string) => {
   console.log("LOOK",firstName, lastName);
   return response.data;
 };
+
+export const findCoursesForUser = async (username: string) => {
+  const response = await axiosWithCredentials.get(`${USERS_API}/${username}/courses`);
+  return response.data;
+};
+
 
 
 
