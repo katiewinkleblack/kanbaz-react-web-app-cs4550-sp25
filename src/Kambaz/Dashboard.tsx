@@ -43,11 +43,22 @@ const [showAllCourse, setShowAllCourse] = useState(false);
 const findCoursesForUser = async () => {
   try {
     const courses = await UserClient.findCoursesForUser(currentUser._id);
-    setCourses(courses);
+    const markedCourses = courses.map((course: any) => ({
+      ...course,
+      enrolled: true,
+    }));
+    setCourses(markedCourses);
   } catch (error) {
     console.error(error);
   }
 };
+
+const markEnrolledCourses = (all: any[], enrolled: any[]) =>
+  all.map(course => ({
+    ...course,
+    enrolled: enrolled.some(e => e._id === course._id),
+  }));
+
 
 const changeCourseView = () => setShowAllCourse(!showAllCourse);
 
@@ -60,14 +71,7 @@ const fetchCourses = async () => {
     const enrolledCourses = await UserClient.findCoursesForUser(
       currentUser.username
     );
-    const courses = allCourses.map((course: any) => {
-      if (enrolledCourses.find((c: any) => c._id === course._id)) {
-        return { ...course, enrolled: true };
-      } else {
-        return course;
-      }
-    });
-    setCourses(courses);
+    setCourses(markEnrolledCourses(allCourses, enrolledCourses));
   } catch (error) {
     console.error(error);
   }
