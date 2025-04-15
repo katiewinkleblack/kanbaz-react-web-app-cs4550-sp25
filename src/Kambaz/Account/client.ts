@@ -15,6 +15,7 @@ export const findAllUsers = async () => {
 export const findMyCourses = async (username: any) => {
   const { data } = await axiosWithCredentials.get(`${USERS_API}/${username}/courses`,{
     withCredentials: true, }
+    
   );
   return data;
 };

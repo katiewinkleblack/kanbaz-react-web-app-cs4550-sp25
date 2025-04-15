@@ -101,6 +101,7 @@ useEffect(() => {
   const handleAddCourse = async () => {
     try {
     const newCourseData = {
+      _id: `C${Date.now()}`,
       name: courseName,
       description: courseDesc,
       number: "",
