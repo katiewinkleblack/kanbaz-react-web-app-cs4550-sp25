@@ -101,7 +101,7 @@ const handleDeleteCourse = async (courseId: string) => {
       image: "/images/teslabot.jpg"
     };
     const {data: newCourse } = await axios.post(COURSES_API, newCourseData);
-
+    setCourses((prev) => [...prev, { ...newCourse, enrolled: true }]);
   
 
     dispatch(addCourse(newCourse));
@@ -200,7 +200,7 @@ useEffect(() => {
 
           
 
-          {courses.map((course: any) => (
+        {(showAllCourse ? courses : courses.filter((c: any) => c.enrolled)).map((course: any) => (
            course && course._id && (
 
             <Col key={course._id}
