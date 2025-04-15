@@ -3,6 +3,8 @@ const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
 const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 const USERS_API = `${REMOTE_SERVER}/api/users`;
 const axiosWithCredentials = axios.create({ withCredentials: true});
+export const ENROLLMENTS_API = `${REMOTE_SERVER}/api/enrollments`;
+
 
 
 export const fetchAllCourses = async () => {
@@ -28,6 +30,14 @@ export const createCourse = async (course: any) => {
     const response = await axios.post(
       `${COURSES_API}/${courseId}/modules`,
       module
+    );
+    return response.data;
+  };
+
+  export const createEnrollmentForCourse = async (username: string, courseId: any) => {
+    const response = await axios.post(
+      `${ENROLLMENTS_API}/${username}/courses/${courseId}/enroll`,
+      courseId
     );
     return response.data;
   };

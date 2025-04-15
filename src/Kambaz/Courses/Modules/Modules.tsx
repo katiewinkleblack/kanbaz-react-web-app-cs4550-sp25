@@ -43,7 +43,7 @@ export default function Modules() {
     const newModule = { _id: `M${Date.now()}`,
     name: moduleName, 
     course: cid ,
-  dataCreated: new Date().toISOString,
+  dateCreated: new Date().toISOString,
 }; 
 
 

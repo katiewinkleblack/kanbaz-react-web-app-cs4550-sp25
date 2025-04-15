@@ -13,14 +13,11 @@ import * as CoursesClient from "./Courses/client";
 export default function Dashboard({
   courses,
   setCourses,
-  enrolling,
-  setEnrolling,
+
   updateEnrollment,
 }: {
   courses: any[];
   setCourses: React.Dispatch<React.SetStateAction<any[]>>;
-  enrolling: boolean;
-  setEnrolling: (enrolling: boolean) => void;
   updateEnrollment: (courseId: string, enrolled: boolean) => void;
 }) {
 
@@ -90,20 +87,6 @@ const handleDeleteCourse = async (courseId: string) => {
 }
 
 
-
-
-
-useEffect(() => {
-  if (enrolling) {
-    fetchCourses();
-  } else {
-    findCoursesForUser();
-  }
-}, [currentUser, enrolling]);
-
-
-
-
   const handleAddCourse = async () => {
     try {
     const newCourseData = {
@@ -158,6 +141,15 @@ const handleUpdateCourse = async () => {
 };
 
   
+
+useEffect(() => {
+  if (showAllCourse) {
+    fetchCourses();
+  } else {
+    findCoursesForUser();
+  }
+}, [currentUser, showAllCourse]);
+
  
 
    return (
@@ -171,9 +163,6 @@ const handleUpdateCourse = async () => {
          className="mb-3">
           {showAllCourse ? "Show Enrolled Courses" : "Show All Courses"}
         </Button>
-         <Button variant={enrolling ? "secondary" : "success"} onClick={() => setEnrolling(!enrolling)}>
-         {enrolling ? "Stop Enrolling" : "Start Enrolling"}
-       </Button>
        </div>
       )}
 
@@ -226,7 +215,7 @@ const handleUpdateCourse = async () => {
                     <Card.Text className="wd-dashboard-course-description overflow-hidden" style={{ height: "100px" }}>
                       {course.description} </Card.Text>
 
-{isStudent && enrolling && (
+{isStudent && (
   <Button 
     onClick={(e) => {
     e.preventDefault();

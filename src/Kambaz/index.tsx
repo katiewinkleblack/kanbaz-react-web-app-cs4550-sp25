@@ -12,9 +12,9 @@ import * as UserClient from "../Kambaz/Account/client";
 
 
 export default function Kambaz() {
+
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const [courses, setCourses] = useState<any[]>([]);
-    const [enrolling, setEnrolling] = useState<boolean>(false);
   
     const updateEnrollment = async (courseId: string, enrolled: boolean) => {
       try {
@@ -50,8 +50,6 @@ export default function Kambaz() {
                 <Dashboard
                 courses={courses}
                 setCourses={setCourses}
-                enrolling={enrolling}
-                setEnrolling={setEnrolling}
                 updateEnrollment={updateEnrollment}
                 />
                 </ProtectedRoute>} />
